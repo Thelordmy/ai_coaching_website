@@ -1,20 +1,26 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f5f5f5;
+  background-color: #002147;
+  color: #FFFFFF;
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #002147;
+  padding: 15px 30px;
+  height: 70px;
+  border-bottom: 1px solid #ccc;
+}
 
 .logo a {
-  color: #FFFFFF;       /* keep it white */
-  text-decoration: none; /* remove underline */
+  color: #FFFFFF;
+  text-decoration: none;
   font-size: 1.5em;
   font-weight: bold;
 }
-.logo a:hover {
-  color: #1E90FF; /* Dodger Blue hover effect */
-}
-
 
 .nav-links {
   list-style: none;
@@ -23,55 +29,42 @@ body {
 }
 
 .nav-links a {
-  color: white;
+  color: #FFFFFF;
   text-decoration: none;
   font-weight: bold;
 }
 
 .nav-links a:hover {
-  color:dodgerblue;
+  color: #1E90FF;
 }
 
 .signup-btn {
-  background-color: dodgerblue;
-  color: white;
+  background-color: #1E90FF;
+  color: #FFFFFF;
   padding: 8px 16px;
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #002147; /* Oxford Blue */
-  padding: 15px 30px;
-  height: 70px; /* fixed height for navbar */
-  border-bottom: 1px solid #ccc;
-}
 main {
-  background-color: #002147; /* Oxford Blue outside */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 60px 0; /* spacing above/below */
+  background-color: #002147;
+  padding: 40px 0;
 }
 
 .hero {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #002147; /* same Oxford Blue inside */
+  background-color: #002147;
   color: #FFFFFF;
   padding: 40px;
+  margin: 40px auto;
   max-width: 1000px;
-  border: 1px solid #FFFFFF; /* thin white border */
+  border: 1px solid #FFFFFF;
   border-radius: 8px;
   box-sizing: border-box;
 }
-
-
 
 .hero-left {
   max-width: 50%;
@@ -87,17 +80,84 @@ main {
   margin-bottom: 30px;
 }
 
+.hero-buttons button {
+  padding: 10px 20px;
+  margin-right: 15px;
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+  background-color: #1E90FF;
+  color: #FFFFFF;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
 
+.hero-buttons .secondary {
+  background-color: transparent;
+  border: 2px solid #1E90FF;
+  color: #1E90FF;
+}
 
+.hero-buttons button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #1E90FF;
+}
+
+.hero-buttons button:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 5px #FFFFFF;
+}
 
 .hero-right img {
   max-width: 400px;
   border-radius: 10px;
 }
+
+.features {
+  background-color: #0A0F1C;
+  color: #FFFFFF;
+  padding: 60px 40px;
+  text-align: center;
+  margin: 40px auto;
+  max-width: 1000px;
+  border-radius: 8px;
+}
+
+.features h2 {
+  font-size: 2em;
+  margin-bottom: 40px;
+  color: #1E90FF;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.feature {
+  background-color: #002147;
+  border: 1px solid #FFFFFF;
+  border-radius: 8px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature h3 {
+  color: #1E90FF;
+  margin-bottom: 10px;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(30, 144, 255, 0.6);
+}
+
 .footer {
   display: flex;
   justify-content: space-between;
-  background-color:#E5F1F9;
+  background-color: #0A0F1C;
   color: #FFFFFF;
   padding: 40px 60px;
   flex-wrap: wrap;
@@ -140,77 +200,5 @@ main {
 }
 
 .footer-column a:hover {
-  color: #1E90FF; 
-}
-.hero-buttons button {
-  padding: 10px 20px;
-  margin-right: 15px;
-  font-size: 1em;
-  border: none;
-  cursor: pointer;
-  background-color: #1E90FF; /* Dodger Blue */
-  color: #FFFFFF;
-  font-weight: bold;
-  border-radius: 5px;
-  transition: all 0.3s ease; /* 👈 smooth animation */
-}
-
-.hero-buttons .secondary {
-  background-color: transparent;
-  border: 2px solid #1E90FF;
   color: #1E90FF;
-}
-
-/* Hover effect */
-.hero-buttons button:hover {
-  transform: scale(1.05);       /* slightly bigger */
-  box-shadow: 0 0 10px #1E90FF; /* glowing effect */
-}
-
-/* Click (active) effect */
-.hero-buttons button:active {
-  transform: scale(0.95);       /* slightly smaller when clicked */
-  box-shadow: 0 0 5px #FFFFFF;  /* quick white flash */
-}
-.features {
-  background-color: #0A0F1C; /* darker Oxford Blue for contrast */
-  color: #FFFFFF;
-  padding: 60px 40px;
-  text-align: center;
-}
-
-.features h2 {
-  font-size: 2em;
-  margin-bottom: 40px;
-  color: #1E90FF; /* Dodger Blue accent */
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.feature {
-  background-color: #002147; /* Oxford Blue card */
-  border: 1px solid #FFFFFF;
-  border-radius: 8px;
-  padding: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature h3 {
-  color: #1E90FF;
-  margin-bottom: 10px;
-}
-
-.feature p {
-  font-size: 0.95em;
-}
-
-.feature:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px rgba(30, 144, 255, 0.6); /* Dodger Blue glow */
 }
