@@ -1,28 +1,30 @@
+
 /* Theme variables */
 :root {
   /* Background / Surfaces */
-  --ultra-dark: #0A0A12;   /* main background */
-  --dark-surface: #1A1B2E; /* cards, panels, navbar */
+  --ultra-dark: #1a0b2e;   /* main background - deep purple */
+  --dark-surface: #2d1b4e; /* sidebar, navbar - rich purple */
+  --white-surface: #ffffff; /* main content cards - white */
+  --light-gray: #f9fafb;   /* subtle backgrounds */
 
   /* Primary & Accent */
-  --primary: #7C3AED;      /* buttons, highlights, links */
-  --accent: #A78BFA;       /* hover states, secondary buttons, icons */
+  --primary: #6c3fb5;      /* buttons, highlights, links - vibrant purple */
+  --accent: #8b5cf6;       /* hover states, secondary buttons, icons - lighter purple */
 
   /* Text */
-  --text-main: #EDE9FE;    /* headlines, body text */
-  --text-secondary: #C7D2FE; /* subtext, captions */
+  --text-main: #1f2937;    /* headlines, body text on white */
+  --text-secondary: #6b7280; /* subtext, captions on white */
+  --text-light: #f3f4f6;   /* text on purple backgrounds */
 
   /* Feedback / Alerts */
-  --success: #4ADE80;
-  --error: #F87171;
-  --info: #60A5FA;
+  --success: #10b981;
+  --error: #ef4444;
+  --info: #3b82f6;
 
   /* Gradients */
-  --gradient-button: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
-  --gradient-background: linear-gradient(180deg, #0A0A12 0%, #1A1B2E 100%);
+  --gradient-button: linear-gradient(135deg, #6c3fb5 0%, #8b5cf6 100%);
+  --gradient-background: linear-gradient(180deg, #1a0b2e 0%, #2d1b4e 100%);
 }
-
-
 /* Base */
 * { box-sizing: border-box; }
 body {
