@@ -1,9 +1,8 @@
-
 /* Theme variables */
 :root {
   /* Background / Surfaces */
-  --ultra-dark: #1a0b2e;   /* main background - deep purple */
-  --dark-surface: #2d1b4e; /* sidebar, navbar - rich purple */
+  --ultra-dark: #ffffff;   /* main background - white */
+  --dark-surface: #7C3AED; /* sidebar, navbar, sections - vibrant purple */
   --white-surface: #ffffff; /* main content cards - white */
   --light-gray: #f9fafb;   /* subtle backgrounds */
 
@@ -23,7 +22,7 @@
 
   /* Gradients */
   --gradient-button: linear-gradient(135deg, #6c3fb5 0%, #8b5cf6 100%);
-  --gradient-background: linear-gradient(180deg, #1a0b2e 0%, #2d1b4e 100%);
+  --gradient-background: #ffffff;
 }
 /* Base */
 * { box-sizing: border-box; }
@@ -44,11 +43,11 @@ body {
   align-items: center;
   background-color: var(--dark-surface);
   padding: 14px 28px;
-  border-bottom: 1px solid rgba(167, 139, 250, 0.15); /* subtle accent line */
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
 }
 
 .logo a {
-  color: var(--text-main);
+  color: var(--text-light);
   text-decoration: none;
   font-size: 1.25rem;
   font-weight: 700;
@@ -63,20 +62,20 @@ body {
 }
 
 .nav-links a {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   font-weight: 600;
   transition: color 0.25s ease;
 }
 
 .nav-links a:hover {
-  color: var(--accent);
+  color: var(--text-light);
 }
 
 /* Buttons (unified) */
 .btn {
   background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-  color: var(--text-main);
+  color: var(--text-light);
   padding: 10px 18px;
   border-radius: 8px;
   text-decoration: none;
@@ -85,31 +84,31 @@ body {
   cursor: pointer;
   display: inline-block;
   transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.25s ease;
-  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
+  box-shadow: 0 8px 20px rgba(108, 63, 181, 0.3);
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.35);
+  box-shadow: 0 12px 28px rgba(108, 63, 181, 0.4);
   filter: brightness(1.05);
 }
 
 .btn:active {
   transform: translateY(0) scale(0.98);
-  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 6px 16px rgba(108, 63, 181, 0.35);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--accent);
-  border: 2px solid var(--accent);
+  color: var(--text-light);
+  border: 2px solid var(--text-light);
   box-shadow: none;
 }
 
 .btn-secondary:hover {
-  color: var(--text-main);
-  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-  border-color: transparent;
+  color: var(--primary);
+  background: var(--text-light);
+  border-color: var(--text-light);
 }
 
 /* Main wrapper */
@@ -128,8 +127,8 @@ main {
   max-width: 1400px;          /* wider container */
   min-height: 600px;          /* taller hero section */
   border-radius: 16px;
-  border: 1px solid rgba(167, 139, 250, 0.25);
-  box-shadow: 0 12px 36px rgba(10, 10, 18, 0.65);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 12px 36px rgba(45, 27, 78, 0.4);
 }
 
 .hero-left,
@@ -145,12 +144,14 @@ main {
   font-size: 2.4rem;          /* slightly bigger headline */
   line-height: 1.3;
   margin-bottom: 20px;
+  color: var(--text-light);
 }
 
 .hero-left p {
   font-size: 1.1rem;          /* slightly bigger paragraph */
   line-height: 1.6;
   margin-bottom: 28px;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .hero-buttons {
@@ -164,27 +165,27 @@ main {
   max-height: 500px;          /* controls max size */
   object-fit: cover;          /* crops nicely if needed */
   border-radius: 14px;
-  border: 1px solid rgba(167, 139, 250, 0.25);
-  box-shadow: 0 14px 28px rgba(10, 10, 18, 0.55);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
 }
 
 /* Features section */
 .features {
   background-color: var(--dark-surface);
-  color: var(--text-main);
+  color: var(--text-light);
   padding: 60px 40px;
   margin: 40px auto;
   max-width: 1200px;
   border-radius: 16px;
-  border: 1px solid rgba(167, 139, 250, 0.2);
-  box-shadow: 0 10px 28px rgba(10, 10, 18, 0.55);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 10px 28px rgba(45, 27, 78, 0.4);
   text-align: center;
 }
 
 .features h2 {
   font-size: 2rem;
   margin-bottom: 40px;
-  color: var(--accent);
+  color: var(--text-light);
 }
 
 .features-grid {
@@ -195,8 +196,8 @@ main {
 }
 
 .feature {
-  background-color: rgba(26, 27, 46, 0.8);
-  border: 1px solid rgba(167, 139, 250, 0.2);
+  background-color: rgba(58, 38, 87, 0.6);
+  border: 1px solid rgba(139, 92, 246, 0.3);
   border-radius: 12px;
   padding: 24px;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -204,7 +205,8 @@ main {
 
 .feature:hover {
   transform: translateY(-6px);
-  box-shadow: 0 14px 32px rgba(167, 139, 250, 0.25);
+  box-shadow: 0 14px 32px rgba(139, 92, 246, 0.35);
+  border-color: var(--accent);
 }
 
 .feature i {
@@ -216,19 +218,12 @@ main {
 .feature h3 {
   font-size: 1.2rem;
   margin-bottom: 10px;
-  color: var(--text-main);
+  color: var(--text-light);
 }
 
 .feature p {
   font-size: 0.95rem;
-  color: var(--text-secondary);
-}
-
-
-.feature:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent);
-  box-shadow: 0 14px 32px rgba(167, 139, 250, 0.25);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* Footer */
@@ -238,9 +233,9 @@ main {
   gap: 40px;
   flex-wrap: wrap;
   background-color: var(--dark-surface);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.7);
   padding: 36px 48px;
-  border-top: 1px solid rgba(167, 139, 250, 0.18);
+  border-top: 1px solid rgba(139, 92, 246, 0.25);
 }
 
 .footer-left {
@@ -250,7 +245,7 @@ main {
 .footer-logo {
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--text-main);
+  color: var(--text-light);
   margin-bottom: 12px;
 }
 
@@ -262,7 +257,7 @@ main {
   width: 22px;
   margin-right: 10px;
   vertical-align: middle;
-  filter: drop-shadow(0 2px 4px rgba(10, 10, 18, 0.6));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
 .footer-right {
@@ -276,14 +271,14 @@ main {
 }
 
 .footer-column a {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   margin-bottom: 8px;
   transition: color 0.2s ease;
 }
 
 .footer-column a:hover {
-  color: var(--accent);
+  color: var(--text-light);
 }
 
 /* Utility: alerts demo (if needed later) */
