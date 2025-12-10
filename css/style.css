@@ -50,16 +50,27 @@ body {
   height: 70px; /* fixed height for navbar */
   border-bottom: 1px solid #ccc;
 }
+main {
+  background-color: #002147; /* Oxford Blue outside */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0; /* spacing above/below */
+}
 
 .hero {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 60px;
-  background-color: #002147; /* Oxford Blue */
+  background-color: #002147; /* same Oxford Blue inside */
   color: #FFFFFF;
-  height: calc(100vh - 70px); /* full screen minus navbar */
+  padding: 40px;
+  max-width: 1000px;
+  border: 1px solid #FFFFFF; /* thin white border */
+  border-radius: 8px;
+  box-sizing: border-box;
 }
+
 
 
 .hero-left {
@@ -76,23 +87,8 @@ body {
   margin-bottom: 30px;
 }
 
-.hero-buttons button {
-  padding: 10px 20px;
-  margin-right: 15px;
-  font-size: 1em;
-  border: none;
-  cursor: pointer;
-  background-color: dodgerblue;
-  color: white;
-  font-weight: bold;
-  border-radius: 5px;
-}
 
-.hero-buttons .secondary {
-  background-color: transparent;
-  border: 2px solid dodgerblue;
-  color: dodgerblue;
-}
+
 
 .hero-right img {
   max-width: 400px;
@@ -144,5 +140,77 @@ body {
 }
 
 .footer-column a:hover {
-  color: #1E90FF; /* Dodger Blue hover */
+  color: #1E90FF; 
+}
+.hero-buttons button {
+  padding: 10px 20px;
+  margin-right: 15px;
+  font-size: 1em;
+  border: none;
+  cursor: pointer;
+  background-color: #1E90FF; /* Dodger Blue */
+  color: #FFFFFF;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.3s ease; /* 👈 smooth animation */
+}
+
+.hero-buttons .secondary {
+  background-color: transparent;
+  border: 2px solid #1E90FF;
+  color: #1E90FF;
+}
+
+/* Hover effect */
+.hero-buttons button:hover {
+  transform: scale(1.05);       /* slightly bigger */
+  box-shadow: 0 0 10px #1E90FF; /* glowing effect */
+}
+
+/* Click (active) effect */
+.hero-buttons button:active {
+  transform: scale(0.95);       /* slightly smaller when clicked */
+  box-shadow: 0 0 5px #FFFFFF;  /* quick white flash */
+}
+.features {
+  background-color: #0A0F1C; /* darker Oxford Blue for contrast */
+  color: #FFFFFF;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 2em;
+  margin-bottom: 40px;
+  color: #1E90FF; /* Dodger Blue accent */
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.feature {
+  background-color: #002147; /* Oxford Blue card */
+  border: 1px solid #FFFFFF;
+  border-radius: 8px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature h3 {
+  color: #1E90FF;
+  margin-bottom: 10px;
+}
+
+.feature p {
+  font-size: 0.95em;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(30, 144, 255, 0.6); /* Dodger Blue glow */
 }
