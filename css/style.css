@@ -6,26 +6,34 @@
 
   /* Primary & Accent */
   --primary: #7C3AED;      /* buttons, highlights, links */
-  --accent: #A78BFA;       /* hover states, secondary, icons */
+  --accent: #A78BFA;       /* hover states, secondary buttons, icons */
 
   /* Text */
-  --text-main: #EDE9FE;    /* headlines, body */
+  --text-main: #EDE9FE;    /* headlines, body text */
   --text-secondary: #C7D2FE; /* subtext, captions */
 
   /* Feedback / Alerts */
   --success: #4ADE80;
-  --error:   #F87171;
-  --info:    #60A5FA;
+  --error: #F87171;
+  --info: #60A5FA;
+
+  /* Gradients */
+  --gradient-button: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+  --gradient-background: linear-gradient(180deg, #0A0A12 0%, #1A1B2E 100%);
 }
+
 
 /* Base */
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: var(--gradient-background);
   color: var(--text-main);
-  background: linear-gradient(180deg, var(--ultra-dark) 0%, var(--dark-surface) 100%);
 }
+
+
+
 
 /* Navbar */
 .navbar {
@@ -113,33 +121,49 @@ main {
   justify-content: space-between;
   align-items: center;
   background-color: var(--dark-surface);
-  color: var(--text-main);
-  padding: 60px;               /* more padding */
-  margin: 60px auto;           /* more spacing around */
-  max-width: 1200px;           /* wider container */
-  min-height: 500px;           /* taller hero */
-  border: 1px solid rgba(167, 139, 250, 0.25);
+  padding: 80px;              /* more breathing room */
+  margin: 60px auto;
+  max-width: 1400px;          /* wider container */
+  min-height: 600px;          /* taller hero section */
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(10, 10, 18, 0.6);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  box-shadow: 0 12px 36px rgba(10, 10, 18, 0.65);
 }
+
+.hero-left,
+.hero-right {
+  flex: 1; /* each side takes half */
+}
+
+.hero-left {
+  padding-right: 40px;
+}
+
 .hero-left h1 {
-  font-size: 2rem;         /* smaller headline */
+  font-size: 2.4rem;          /* slightly bigger headline */
   line-height: 1.3;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .hero-left p {
-  font-size: 1rem;         /* smaller paragraph */
-  line-height: 1.5;
-  margin-bottom: 24px;
+  font-size: 1.1rem;          /* slightly bigger paragraph */
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 14px;
 }
 
 .hero-right img {
-  max-width: 520px;        /* bigger image */
-  width: 100%;
+  width: 100%;                /* fills its half */
+  height: 100%;               /* stretches vertically */
+  max-height: 500px;          /* controls max size */
+  object-fit: cover;          /* crops nicely if needed */
   border-radius: 14px;
   border: 1px solid rgba(167, 139, 250, 0.25);
-  box-shadow: 0 12px 24px rgba(10, 10, 18, 0.55);
+  box-shadow: 0 14px 28px rgba(10, 10, 18, 0.55);
 }
 
 /* Features section */
