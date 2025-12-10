@@ -1,36 +1,26 @@
-button[type="submit"] {
-  width: 100%;
-  padding: 16px 24px;
-  background: #ffffff;
-  color: #7C3AED;
-  border: none;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 1.05rem;
-  cursor: pointer;
-  transition: all 200ms ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-}/* Signup Page Specific Styles */
+/* Login Page Styles */
+
 body {
   margin: 0;
   padding: 0;
 }
 
-.signup-container {
+.login-container {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   padding: 40px 20px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   background-image: url('../assets/images/mesh-gradient.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.card {
+.login-box {
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   background: #7C3AED;
   border: none;
   border-radius: 20px;
@@ -38,19 +28,21 @@ body {
   box-shadow: 0 20px 60px rgba(124, 58, 237, 0.25);
 }
 
-.card h1 {
+.login-box h2 {
   margin: 0 0 12px 0;
   font-size: 2rem;
   letter-spacing: -0.5px;
   color: #ffffff;
   font-weight: 700;
+  text-align: center;
 }
 
-.card > p {
+.subtitle {
   margin: 0 0 32px 0;
   color: rgba(255, 255, 255, 0.9);
   font-size: 1rem;
   line-height: 1.5;
+  text-align: center;
 }
 
 .field {
@@ -69,7 +61,6 @@ body {
   position: relative;
 }
 
-input[type="text"],
 input[type="email"],
 input[type="password"] {
   width: 100%;
@@ -83,23 +74,6 @@ input[type="password"] {
   transition: all 200ms ease;
 }
 
-input[type="text"]::placeholder,
-input[type="email"]::placeholder,
-input[type="password"]::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-input:focus {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
-}
-
-input[type="password"] {
-  padding-right: 16px;
-}
-
-input[type="text"]::placeholder,
 input[type="email"]::placeholder,
 input[type="password"]::placeholder {
   color: rgba(255, 255, 255, 0.5);
@@ -125,7 +99,6 @@ input:focus {
   font-weight: 600;
   cursor: pointer;
   transition: all 200ms ease;
-  pointer-events: all;
   z-index: 10;
 }
 
@@ -135,30 +108,21 @@ input:focus {
 }
 
 .error {
-  margin-top: 8px;
-  font-size: 0.875rem;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.2);
+  border: 2px solid rgba(239, 68, 68, 0.5);
   color: #fecaca;
-  min-height: 1.2em;
-  font-weight: 500;
+  font-weight: 600;
+  text-align: center;
+  font-size: 0.9rem;
 }
 
-.hint {
-  margin-top: 8px;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.4;
-}
-
-.actions {
-  margin-top: 32px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-button[type="submit"] {
+.btn-primary {
   width: 100%;
   padding: 16px 24px;
+  margin-top: 8px;
   background: #ffffff;
   color: #7C3AED;
   border: none;
@@ -170,70 +134,55 @@ button[type="submit"] {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
-button[type="submit"]:hover {
+.btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
-button[type="submit"]:disabled {
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
   opacity: 0.7;
   cursor: not-allowed;
   transform: none;
 }
 
-button[type="submit"]:active {
-  transform: translateY(0);
-}
-
-.message {
-  margin-top: 24px;
-  padding: 14px 18px;
-  border-radius: 12px;
-  background: rgba(16, 185, 129, 0.2);
-  border: 2px solid rgba(16, 185, 129, 0.5);
-  color: #d1fae5;
-  font-weight: 600;
-  text-align: center;
-  display: none;
-}
-
-.message.show {
-  display: block;
-}
-
-.login-link {
+.toggle-mode {
   margin-top: 28px;
   text-align: center;
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.9);
 }
 
-.login-link a {
+.toggle-mode a {
   color: #ffffff;
   text-decoration: underline;
   font-weight: 700;
   transition: opacity 200ms ease;
+  cursor: pointer;
 }
 
-.login-link a:hover {
+.toggle-mode a:hover {
   opacity: 0.8;
 }
 
 /* Responsive */
 @media (max-width: 600px) {
-  .signup-container {
+  .login-container {
     padding: 20px;
   }
   
-  .card {
+  .login-box {
     padding: 32px 24px;
   }
   
-  .card h1 {
+  .login-box h2 {
     font-size: 1.75rem;
   }
   
-  button[type="submit"] {
+  .btn-primary {
     font-size: 1rem;
   }
 }
