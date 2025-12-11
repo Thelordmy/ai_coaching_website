@@ -28,11 +28,20 @@ body {
   height: 100vh;
   left: 0;
   top: 0;
+  transition: transform 300ms ease;
+  z-index: 1000;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-280px);
 }
 
 .sidebar-header {
   padding: 32px 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .logo {
@@ -41,6 +50,63 @@ body {
   font-weight: 800;
   margin: 0;
   letter-spacing: -0.5px;
+}
+
+/* Toggle Button */
+.toggle-sidebar-btn {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.toggle-sidebar-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.toggle-sidebar-btn i {
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+/* Fixed Toggle Button (appears when sidebar is closed) */
+.toggle-sidebar-btn-fixed {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  background: #7C3AED;
+  border: none;
+  border-radius: 12px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  transition: all 200ms ease;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+}
+
+.toggle-sidebar-btn-fixed:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
+}
+
+.toggle-sidebar-btn-fixed i {
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+.sidebar.collapsed ~ .main-content .toggle-sidebar-btn-fixed {
+  display: flex;
 }
 
 .sidebar-nav {
@@ -90,10 +156,20 @@ body {
   flex: 1;
   padding: 40px;
   overflow-y: auto;
+  transition: margin-left 300ms ease;
+}
+
+.main-content.expanded {
+  margin-left: 0;
 }
 
 .welcome-section {
   margin-bottom: 32px;
+  transition: padding-left 300ms ease;
+}
+
+.main-content.expanded .welcome-section {
+  padding-left: 60px;
 }
 
 .welcome-section h1 {

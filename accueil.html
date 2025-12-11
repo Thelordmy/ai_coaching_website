@@ -10,9 +10,12 @@
 <body>
   
   <!-- Sidebar -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <h1 class="logo">CoachIA</h1>
+      <button class="toggle-sidebar-btn" id="toggleSidebar">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
     
     <nav class="sidebar-nav">
@@ -56,6 +59,11 @@
   
   <!-- Main content area -->
   <main class="main-content">
+    <!-- Toggle Button (appears when sidebar is closed) -->
+    <button class="toggle-sidebar-btn-fixed" id="toggleSidebarFixed">
+      <i class="fas fa-bars"></i>
+    </button>
+    
     <div class="welcome-section">
       <h1>Bienvenue, Yahya! 👋</h1>
       <p class="subtitle">Prêt à atteindre tes objectifs aujourd'hui ?</p>
@@ -156,5 +164,6 @@
     </div>
   </main>
 
+  <script src="js/accueil.js"></script>
 </body>
 </html>
