@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil - CoachIA</title>
+  <link rel="stylesheet" href="css/accueil.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1 class="logo">CoachIA</h1>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="accueil.html" class="nav-item active">
+        <i class="fas fa-home icon"></i>
+        <span>Accueil</span>
+      </a>
+      <a href="chat.html" class="nav-item">
+        <i class="fas fa-comments icon"></i>
+        <span>Chat IA</span>
+      </a>
+      <a href="workouts.html" class="nav-item">
+        <i class="fas fa-dumbbell icon"></i>
+        <span>Entraînements</span>
+      </a>
+      <a href="nutrition.html" class="nav-item">
+        <i class="fas fa-utensils icon"></i>
+        <span>Nutrition</span>
+      </a>
+      <a href="progress.html" class="nav-item">
+        <i class="fas fa-chart-line icon"></i>
+        <span>Progrès</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <i class="fas fa-cog icon"></i>
+        <span>Paramètres</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <a href="profile.html" class="nav-item">
+        <i class="fas fa-user icon"></i>
+        <span>Profil</span>
+      </a>
+      <a href="index.html" class="nav-item">
+        <i class="fas fa-sign-out-alt icon"></i>
+        <span>Déconnexion</span>
+      </a>
+    </div>
+  </aside>
+  
+  <!-- Main content area -->
+  <main class="main-content">
+    <div class="welcome-section">
+      <h1>Bienvenue, Yahya! 👋</h1>
+      <p class="subtitle">Prêt à atteindre tes objectifs aujourd'hui ?</p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <i class="fas fa-fire stat-icon"></i>
+        <div class="stat-info">
+          <h3>5/7</h3>
+          <p>Entraînements</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-bolt stat-icon"></i>
+        <div class="stat-info">
+          <h3>1,240</h3>
+          <p>Calories brûlées</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-trophy stat-icon"></i>
+        <div class="stat-info">
+          <h3>7 jours</h3>
+          <p>Série actuelle</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-bullseye stat-icon"></i>
+        <div class="stat-info">
+          <h3>75%</h3>
+          <p>Objectif atteint</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Today's Workout -->
+    <div class="section-card">
+      <h2>Entraînement d'aujourd'hui</h2>
+      <div class="workout-preview">
+        <div class="workout-info">
+          <h3>💪 Journée des jambes</h3>
+          <p>6 exercices • 45 minutes • Intermédiaire</p>
+        </div>
+        <button class="btn-primary">Commencer</button>
+      </div>
+    </div>
+
+    <!-- Nutrition Summary -->
+    <div class="section-card">
+      <h2>Résumé nutritionnel</h2>
+      <div class="nutrition-bars">
+        <div class="nutrition-item">
+          <div class="nutrition-label">
+            <span>Calories</span>
+            <span class="nutrition-value">1,850 / 2,200</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 84%"></div>
+          </div>
+        </div>
+        <div class="nutrition-item">
+          <div class="nutrition-label">
+            <span>Protéines</span>
+            <span class="nutrition-value">120g / 150g</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 80%"></div>
+          </div>
+        </div>
+        <div class="nutrition-item">
+          <div class="nutrition-label">
+            <span>Glucides</span>
+            <span class="nutrition-value">200g / 250g</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 80%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button class="action-btn">
+        <i class="fas fa-comments"></i>
+        <span>Parler au coach IA</span>
+      </button>
+      <button class="action-btn">
+        <i class="fas fa-plus-circle"></i>
+        <span>Enregistrer un repas</span>
+      </button>
+      <button class="action-btn">
+        <i class="fas fa-dumbbell"></i>
+        <span>Ajouter un entraînement</span>
+      </button>
+    </div>
+  </main>
+
+</body>
+</html>
