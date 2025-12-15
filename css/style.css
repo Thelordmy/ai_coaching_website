@@ -118,6 +118,8 @@ body {
 /* Main wrapper */
 main {
   padding: 40px 0;
+  
+  
 }
 
 /* Hero (centered card on dark surface) */
@@ -184,6 +186,7 @@ main {
   border: 1px solid rgba(139, 92, 246, 0.3);
   box-shadow: 0 10px 28px rgba(45, 27, 78, 0.4);
   text-align: center;
+  scroll-behavior: smooth;
 }
 
 .features h2 {
@@ -302,4 +305,5 @@ main {
   .hero-right img {
     max-width: 100%;
   }
+
 }
