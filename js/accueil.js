@@ -26,3 +26,18 @@ function toggleSidebar() {
 // Toggle sidebar on both buttons
 toggleBtn.addEventListener('click', toggleSidebar);
 toggleBtnFixed.addEventListener('click', toggleSidebar);
+// Animate stat progress fills from their data-progress attributes
+function initStatProgressBars() {
+document.querySelectorAll('.stat-card[data-progress]').forEach(card => {
+const pct = parseInt(card.dataset.progress, 10) || 0;
+const fill = card.querySelector('.stat-progress-fill');
+const label = card.querySelector('.stat-info h3');
+if (label) label.textContent = pct + '%';
+if (!fill) return;
+// small timeout so transition is visible after load
+setTimeout(() => {
+fill.style.width = pct + '%';
+}, 120);
+});
+}
+document.addEventListener('DOMContentLoaded', initStatProgressBars);

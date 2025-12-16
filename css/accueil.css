@@ -224,6 +224,22 @@ body {
   font-size: 0.9rem;
   color: #6b7280;
 }
+.stat-progress {
+margin-top: 12px;
+height: 10px;
+background: #e5e7eb;
+border-radius: 999px;
+overflow: hidden;
+}
+
+.stat-progress-fill {
+width: 0%;
+height: 100%;
+background: linear-gradient(90deg, #7C3AED 0%, #8b5cf6 100%);
+border-radius: 999px;
+transition: width 800ms cubic-bezier(.2,.9,.2,1);
+box-shadow: 0 4px 12px rgba(124,58,237,0.12) inset;
+}
 
 /* Section Card */
 .section-card {
