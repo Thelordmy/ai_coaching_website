@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CoachIA — votre coach IA personnel : plans d'entraînement et de nutrition personnalisés, suivi de progression et recommandations basées sur l'IA.">
+  <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
   <title>CoachIA</title>
- <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 <body>
   <!-- Navigation -->
-  <nav class="navbar">
+  <nav class="navbar" aria-label="Navigation principale">
     <div class="logo"><a href="index.html">CoachIA</a></div>
-    <ul class="nav-links">
-      <li><a href="accueil.html">Accueil</a></li>
-      <li><a href="#apropos">À propos</a></li>
-      <li><a href="#features">Fonctionnalités</a></li>
+    <ul class="nav-links" role="menubar" aria-label="Liens">
+      <li role="none"><a role="menuitem" href="accueil.html">Accueil</a></li>
+      <li role="none"><a role="menuitem" href="#apropos">À propos</a></li>
+      <li role="none"><a role="menuitem" href="#features">Fonctionnalités</a></li>
     </ul>
     <a href="login.html" class="btn">Se connecter</a>
   </nav>
@@ -23,9 +24,9 @@
   <!-- Main content -->
   <main>
     <!-- Hero -->
-    <section class="hero">
+    <section class="hero" aria-labelledby="hero-heading">
       <div class="hero-left">
-        <h1>Votre coach IA personnel sait ce dont vous avez besoin</h1>
+        <h1 id="hero-heading">Votre coach IA personnel sait ce dont vous avez besoin</h1>
         <p>Recevez des plans d'entraînement et de nutrition adaptés. Suivez chaque répétition, chaque repas, chaque progrès.</p>
         <div class="hero-buttons">
           <a href="signup.html" class="btn">Commencer</a>
@@ -33,59 +34,57 @@
         </div>
       </div>
       <div class="hero-right">
-        <img src="assets/images/pic1.jpeg" alt="pic1.jpeg">
+        <img src="assets/images/pic1.jpeg" alt="Personne s'entraînant avec un coach virtuel — illustration du service CoachIA">
       </div>
     </section>
 
     <!-- Features -->
-    <section class="features" id="features">
-  <h2>Fonctionnalités principales</h2>
-  <div class="features-grid">
-    <div class="feature">
-      <i class="fas fa-brain"></i>
-      <h3>Intelligence IA</h3>
-      <p>Des algorithmes avancés qui s’adaptent à votre progression et optimisent votre entraînement en temps réel.</p>
-    </div>
-    <div class="feature">
-      <i class="fas fa-dumbbell"></i>
-      <h3>Plans personnalisés</h3>
-      <p>Des routines d’exercices conçues selon votre niveau, vos objectifs et votre matériel disponible.</p>
-    </div>
-    <div class="feature">
-      <i class="fas fa-utensils"></i>
-      <h3>Suivi nutritionnel</h3>
-      <p>Des plans de repas adaptés à vos préférences alimentaires et vos objectifs nutritionnels.</p>
-    </div>
-    <div class="feature">
-      <i class="fas fa-bullseye"></i>
-      <h3>Approche orientée objectifs</h3>
-      <p>Fixez et atteignez vos objectifs grâce à des insights IA et un suivi des étapes.</p>
-    </div>
-    <div class="feature">
-      <i class="fas fa-chart-line"></i>
-      <h3>Analyse de progrès</h3>
-      <p>Visualisez votre évolution avec des statistiques détaillées et des recommandations exploitables.</p>
-    </div>
-    <div class="feature">
-      <i class="fas fa-shield-alt"></i>
-      <h3>Sécurité & efficacité</h3>
-      <p>Des recommandations basées sur la science pour garantir votre sécurité et votre santé à long terme.</p>
-    </div>
-  </div>
-</section>
-<!-- A propos-->
- <section class="apropos " id="apropos">
- <h1>À propos</h1>
- <p>Notre coach utilise l’intelligence artificielle pour créer des programmes d’entraînement et des conseils nutritionnels adaptés à vos objectifs.
-Simple, rapide et personnalisé, il vous accompagne 24/7 et s’adapte à votre niveau, votre rythme et votre progression.
-Entraînez‑vous efficacement, mangez mieux, progressez plus vite — tout en restant guidé par une IA conçue pour vous motiver et vous simplifier la vie.
+    <section class="features" id="features" aria-labelledby="features-heading">
+      <h2 id="features-heading">Fonctionnalités principales</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <i class="fas fa-brain" aria-hidden="true"></i>
+          <h3>Intelligence IA</h3>
+          <p>Des algorithmes avancés qui s’adaptent à votre progression et optimisent votre entraînement en temps réel.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-dumbbell" aria-hidden="true"></i>
+          <h3>Plans personnalisés</h3>
+          <p>Des routines d’exercices conçues selon votre niveau, vos objectifs et votre matériel disponible.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-utensils" aria-hidden="true"></i>
+          <h3>Suivi nutritionnel</h3>
+          <p>Des plans de repas adaptés à vos préférences alimentaires et vos objectifs nutritionnels.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-bullseye" aria-hidden="true"></i>
+          <h3>Approche orientée objectifs</h3>
+          <p>Fixez et atteignez vos objectifs grâce à des insights IA et un suivi des étapes.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-chart-line" aria-hidden="true"></i>
+          <h3>Analyse de progrès</h3>
+          <p>Visualisez votre évolution avec des statistiques détaillées et des recommandations exploitables.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-shield-alt" aria-hidden="true"></i>
+          <h3>Sécurité & efficacité</h3>
+          <p>Des recommandations basées sur la science pour garantir votre sécurité et votre santé à long terme.</p>
+        </div>
+      </div>
+    </section>
 
-If you want it even shorter, more marketing, or more technical, I can adjust it.
-</p>
-</section>
-
-
-
+    <!-- A propos-->
+    <section class="apropos" id="apropos" aria-labelledby="apropos-heading">
+      <h1 id="apropos-heading">À propos</h1>
+      <p>
+        Notre coach utilise l’intelligence artificielle pour créer des programmes d’entraînement et des conseils nutritionnels adaptés à vos objectifs.
+        Simple, rapide et personnalisé, il vous accompagne 24/7 et s’adapte à votre niveau, votre rythme et votre progression.
+        Entraînez‑vous efficacement, mangez mieux, progressez plus vite — tout en restant guidé par une IA conçue pour vous motiver et vous simplifier la vie.
+        Si vous le souhaitez, nous pouvons raccourcir ce texte, l'orienter davantage marketing ou technique.
+      </p>
+    </section>
   </main>
 
   <!-- Footer -->
@@ -95,19 +94,19 @@ If you want it even shorter, more marketing, or more technical, I can adjust it.
       <p>Adresse : Niveau 1, 12 rue sidi amr, Berrechid</p>
       <p>Contact : +212 6 15 78 47 23</p>
       <p>Email : m.kairoune@mundiapolis.ma</p>
-      <div class="social-icons">
-        <a href="#"><img src="assets/icons/facebook.svg" alt="Facebook" /></a>
-        <a href="#"><img src="assets/icons/instagram.svg" alt="Instagram" /></a>
-        <a href="#"><img src="assets/icons/x.svg" alt="X" /></a>
-        <a href="#"><img src="assets/icons/youtube.svg" alt="YouTube" /></a>
-      </div>
+      <nav class="social-icons" aria-label="Réseaux sociaux">
+        <a href="#" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt="Facebook"></a>
+        <a href="#" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt="Instagram"></a>
+        <a href="#" aria-label="X"><img src="assets/icons/x.svg" alt="X"></a>
+        <a href="#" aria-label="YouTube"><img src="assets/icons/youtube.svg" alt="YouTube"></a>
+      </nav>
     </div>
 
     <div class="footer-right">
       <div class="footer-column">
         <a href="#apropos">À propos</a>
         <a href="#features">Fonctionnalités</a>
-       
+      </div>
     </div>
   </footer>
 </body>

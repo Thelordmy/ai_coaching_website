@@ -1,19 +1,80 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chat IA - CoachIA</title>
-  <link rel="stylesheet" href="css/accueil.css">
-  <link rel="stylesheet" href="css/chat.css">
+  <link rel="stylesheet" href="chat.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <main>
-         <button class="toggle-sidebar-btn-fixed" id="toggleSidebarFixed"><i class="fas fa-bars"></i></button>
-<div class="section-card">
-    <h2>CoachIA-Chat</h2>
-    <p class="subtitle">repondez au formulaire</p>
-</div>
-    </main>
+  <!-- Sidebar (copied from accueil for consistency) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo"> <a href="index.html">CoachIA</a></div>
+      <button class="toggle-sidebar-btn" id="toggleSidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="accueil.html" class="nav-item">
+        <i class="fas fa-home icon"></i>
+        <span>Accueil</span>
+      </a>
+      <a href="chat.html" class="nav-item active">
+        <i class="fas fa-comments icon"></i>
+        <span>Chat IA</span>
+      </a>
+      <a href="workouts.html" class="nav-item">
+        <i class="fas fa-dumbbell icon"></i>
+        <span>Entraînements</span>
+      </a>
+      <a href="nutrition.html" class="nav-item">
+        <i class="fas fa-utensils icon"></i>
+        <span>Nutrition</span>
+      </a>
+      <a href="progress.html" class="nav-item">
+        <i class="fas fa-chart-line icon"></i>
+        <span>Progrès</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <i class="fas fa-cog icon"></i>
+        <span>Paramètres</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="profile.html" class="nav-item">
+        <i class="fas fa-user icon"></i>
+        <span>Profil</span>
+      </a>
+      <a href="index.html" class="nav-item">
+        <i class="fas fa-sign-out-alt icon"></i>
+        <span>Déconnexion</span>
+      </a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <button class="toggle-sidebar-btn-fixed" id="toggleSidebarFixed">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="section-card" style="padding:16px 20px;">
+      <h2>Chat IA</h2>
+      <p class="subtitle">Pose une question au coach IA — réponses instantanées (mock).</p>
+    </div>
+
+    <section class="chat-container section-card">
+      <div class="chat-window" id="chatWindow" aria-live="polite"></div>
+
+      <form id="chatForm" class="chat-form" autocomplete="off">
+        <input id="chatInput" class="chat-input" type="text" placeholder="Écris un message..." required />
+        <button type="submit" class="btn-primary chat-send"><i class="fas fa-paper-plane"></i></button>
+      </form>
+    </section>
+  </main>
+
+  <script src="js/accueil.js"></script>
+  <script src="chat.js"></script>
 </body>
+</html>
