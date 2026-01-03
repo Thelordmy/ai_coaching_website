@@ -1,19 +1,8 @@
-button[type="submit"] {
-  width: 100%;
-  padding: 16px 24px;
-  background: #ffffff;
-  color: #7C3AED;
-  border: none;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 1.05rem;
-  cursor: pointer;
-  transition: all 200ms ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-}/* Signup Page Specific Styles */
+/* Signup Page Specific Styles */
 body {
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
 }
 
 .signup-container {
@@ -26,6 +15,39 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  animation: fadeIn 0.6s ease-out;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card {
@@ -36,6 +58,7 @@ body {
   border-radius: 20px;
   padding: 40px;
   box-shadow: 0 20px 60px rgba(124, 58, 237, 0.25);
+  animation: slideInUp 0.6s ease-out;
 }
 
 .card h1 {
@@ -55,7 +78,13 @@ body {
 
 .field {
   margin-bottom: 24px;
+  animation: slideInUp 0.6s ease-out backwards;
 }
+
+.field:nth-child(1) { animation-delay: 0.1s; }
+.field:nth-child(2) { animation-delay: 0.2s; }
+.field:nth-child(3) { animation-delay: 0.3s; }
+.field:nth-child(4) { animation-delay: 0.4s; }
 
 .label {
   display: block;
@@ -74,6 +103,7 @@ input[type="email"],
 input[type="password"] {
   width: 100%;
   padding: 12px 16px;
+  padding-right: 50px;
   border-radius: 12px;
   border: 2px solid rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.1);
@@ -81,6 +111,7 @@ input[type="password"] {
   outline: none;
   font-size: 1rem;
   transition: all 200ms ease;
+  box-sizing: border-box;
 }
 
 input[type="text"]::placeholder,
@@ -93,27 +124,16 @@ input:focus {
   border-color: rgba(255, 255, 255, 0.5);
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+  transform: scale(1.01);
 }
 
 input[type="password"] {
-  padding-right: 16px;
-}
-
-input[type="text"]::placeholder,
-input[type="email"]::placeholder,
-input[type="password"]::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-input:focus {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+  padding-right: 50px;
 }
 
 .toggle-btn {
   position: absolute;
-  right: 12px;
+  right: 8px;
   top: 50%;
   transform: translateY(-50%);
   padding: 6px 10px;
@@ -132,6 +152,7 @@ input:focus {
 .toggle-btn:hover {
   background: rgba(0, 0, 0, 0.4);
   border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%) scale(1.05);
 }
 
 .error {
@@ -140,6 +161,7 @@ input:focus {
   color: #fecaca;
   min-height: 1.2em;
   font-weight: 500;
+  animation: slideInDown 0.3s ease-out;
 }
 
 .hint {
@@ -154,6 +176,7 @@ input:focus {
   display: flex;
   gap: 12px;
   align-items: center;
+  animation: slideInUp 0.6s ease-out 0.5s backwards;
 }
 
 button[type="submit"] {
@@ -170,7 +193,7 @@ button[type="submit"] {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
-button[type="submit"]:hover {
+button[type="submit"]:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
@@ -181,7 +204,7 @@ button[type="submit"]:disabled {
   transform: none;
 }
 
-button[type="submit"]:active {
+button[type="submit"]:active:not(:disabled) {
   transform: translateY(0);
 }
 
@@ -195,6 +218,7 @@ button[type="submit"]:active {
   font-weight: 600;
   text-align: center;
   display: none;
+  animation: slideInUp 0.4s ease-out;
 }
 
 .message.show {
@@ -206,6 +230,7 @@ button[type="submit"]:active {
   text-align: center;
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.9);
+  animation: slideInUp 0.6s ease-out 0.6s backwards;
 }
 
 .login-link a {

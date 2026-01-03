@@ -113,10 +113,15 @@ form.addEventListener('submit', (e) => {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Créer mon compte';
 
-      // Redirect to chat page after 2 seconds
+      // Save user to localStorage and redirect to profile setup
       setTimeout(() => {
-        // window.location.href = 'chat.html'; // Uncomment when chat page is ready
-        console.log('Redirecting to chat page...');
+        const userData = {
+          firstName: firstName.value.trim(),
+          lastName: lastName.value.trim(),
+          email: email.value.trim()
+        };
+        localStorage.setItem('signupData', JSON.stringify(userData));
+        window.location.href = 'profile-setup.html';
       }, 2000);
     }, 1500);
   }

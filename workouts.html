@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entraînements - CoachIA</title>
+  <link rel="stylesheet" href="css/accueil.css">
+  <link rel="stylesheet" href="css/workouts.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="js/exercise-db.js"></script>
+  <script src="js/user-data.js"></script>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo"><a href="index.html">CoachIA</a></div>
+      <button class="toggle-sidebar-btn" id="toggleSidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="accueil.html" class="nav-item">
+        <i class="fas fa-home icon"></i>
+        <span>Accueil</span>
+      </a>
+      <a href="chat.html" class="nav-item">
+        <i class="fas fa-comments icon"></i>
+        <span>Chat IA</span>
+      </a>
+      <a href="workouts.html" class="nav-item active">
+        <i class="fas fa-dumbbell icon"></i>
+        <span>Entraînements</span>
+      </a>
+      <a href="nutrition.html" class="nav-item">
+        <i class="fas fa-utensils icon"></i>
+        <span>Nutrition</span>
+      </a>
+      <a href="progress.html" class="nav-item">
+        <i class="fas fa-chart-line icon"></i>
+        <span>Progrès</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <i class="fas fa-cog icon"></i>
+        <span>Paramètres</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <a href="profile.html" class="nav-item">
+        <i class="fas fa-user icon"></i>
+        <span>Profil</span>
+      </a>
+      <a href="index.html" class="nav-item">
+        <i class="fas fa-sign-out-alt icon"></i>
+        <span>Déconnexion</span>
+      </a>
+    </div>
+  </aside>
+  
+  <!-- Main content -->
+  <main class="main-content">
+    <button class="toggle-sidebar-btn-fixed" id="toggleSidebarFixed">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="welcome-section">
+      <h1>Entraînements</h1>
+      <p class="subtitle">Tes séances enregistrées et programmes générés par l'IA.</p>
+    </div>
+
+    <div id="firstTimeWelcome" style="padding: 20px; background: linear-gradient(135deg, #7C3AED 0%, #a78bfa 100%); color: white; border-radius: 12px; margin-bottom: 24px; display: none;">
+      <h3 style="margin: 0 0 12px 0;"><i class="fas fa-sparkles"></i> Bienvenue!</h3>
+      <p style="margin: 0 0 16px 0;">Crée ton premier programme d'entraînement personnalisé en cliquant ci-dessous. L'IA l'adaptera à ton profil, tes objectifs et ta disponibilité.</p>
+      <button onclick="generateAIWorkout()" style="padding: 12px 24px; background: white; color: #7C3AED; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 200ms;">
+        <i class="fas fa-brain"></i> Générer mon premier programme
+      </button>
+    </div>
+
+    <div style="display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;">
+      <button onclick="window.location.href='workout-log.html'" style="padding: 12px 24px; background: linear-gradient(135deg, #7C3AED 0%, #8b5cf6 100%); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 200ms;">
+        <i class="fas fa-plus-circle"></i> Journaliser une séance
+      </button>
+      <button onclick="generateAIWorkout()" style="padding: 12px 24px; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 200ms;">
+        <i class="fas fa-brain"></i> Générer un programme (IA)
+      </button>
+    </div>
+
+    <div class="workout-grid" id="workoutGrid"></div>
+    
+    <div id="emptyState" style="text-align: center; padding: 60px 20px; color: #9ca3af;">
+      <i class="fas fa-dumbbell" style="font-size: 3rem; color: #d1d5db; margin-bottom: 16px;"></i>
+      <h3>Aucun entraînement enregistré</h3>
+      <p>Clique sur "Journaliser une séance" pour enregistrer tes entraînements ou "Générer un programme" pour obtenir une routine personnalisée.</p>
+    </div>
+
+    <!-- Workout detail modal -->
+    <div id="workoutDetailModal" class="workout-modal" aria-modal="true" role="dialog" style="display:none;">
+      <div class="workout-modal__backdrop" onclick="closeWorkoutDetail()"></div>
+      <div class="workout-modal__content">
+        <button class="workout-modal__close" aria-label="Fermer" onclick="closeWorkoutDetail()">✕</button>
+        <div id="workoutDetailBody"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/accueil.js"></script>
+  <script src="js/user-data.js"></script>
+  <script src="js/workouts.js"></script>
+</body>
+</html>

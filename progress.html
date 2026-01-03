@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progrès - CoachIA</title>
+  <link rel="stylesheet" href="css/accueil.css">
+  <link rel="stylesheet" href="css/progress.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo"><a href="index.html">CoachIA</a></div>
+      <button class="toggle-sidebar-btn" id="toggleSidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="accueil.html" class="nav-item">
+        <i class="fas fa-home icon"></i>
+        <span>Accueil</span>
+      </a>
+      <a href="chat.html" class="nav-item">
+        <i class="fas fa-comments icon"></i>
+        <span>Chat IA</span>
+      </a>
+      <a href="workouts.html" class="nav-item">
+        <i class="fas fa-dumbbell icon"></i>
+        <span>Entraînements</span>
+      </a>
+      <a href="nutrition.html" class="nav-item">
+        <i class="fas fa-utensils icon"></i>
+        <span>Nutrition</span>
+      </a>
+      <a href="progress.html" class="nav-item active">
+        <i class="fas fa-chart-line icon"></i>
+        <span>Progrès</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <i class="fas fa-cog icon"></i>
+        <span>Paramètres</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <a href="profile.html" class="nav-item">
+        <i class="fas fa-user icon"></i>
+        <span>Profil</span>
+      </a>
+      <a href="index.html" class="nav-item">
+        <i class="fas fa-sign-out-alt icon"></i>
+        <span>Déconnexion</span>
+      </a>
+    </div>
+  </aside>
+  
+  <!-- Main content -->
+  <main class="main-content">
+    <button class="toggle-sidebar-btn-fixed" id="toggleSidebarFixed">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="welcome-section">
+      <h1>Progrès</h1>
+      <p class="subtitle">Suivi de tes objectifs et résultats.</p>
+    </div>
+
+    <div class="progress-overview" id="progressStats"></div>
+
+    <div class="chart-container">
+      <h3>Évolution du Poids (kg)</h3>
+      <div class="chart" id="weightChart"></div>
+    </div>
+
+    <div class="chart-container">
+      <h3>Entraînements Cette Semaine</h3>
+      <div class="chart" id="workoutsChart"></div>
+    </div>
+
+    <div class="milestones">
+      <h3>Jalons & Récompenses</h3>
+      
+      <div class="milestone-item">
+        <div class="milestone-check">✓</div>
+        <div class="milestone-info">
+          <h4>Premier Entraînement</h4>
+          <p>Complété le 15 Jan 2026</p>
+        </div>
+      </div>
+
+      <div class="milestone-item">
+        <div class="milestone-check">✓</div>
+        <div class="milestone-info">
+          <h4>1 Semaine d'Entraînement</h4>
+          <p>Complété le 20 Jan 2026</p>
+        </div>
+      </div>
+
+      <div class="milestone-item">
+        <div class="milestone-check">✓</div>
+        <div class="milestone-info">
+          <h4>-2 kg</h4>
+          <p>Objectif atteint le 25 Jan 2026</p>
+        </div>
+      </div>
+
+      <div class="milestone-item">
+        <div class="milestone-check">✓</div>
+        <div class="milestone-info">
+          <h4>10 Entraînements</h4>
+          <p>Complété le 30 Jan 2026</p>
+        </div>
+      </div>
+
+      <div class="milestone-item locked">
+        <div class="milestone-check">🔒</div>
+        <div class="milestone-info">
+          <h4>30 Jours Consécutifs</h4>
+          <p>15 jours restants (48%)</p>
+        </div>
+      </div>
+
+      <div class="milestone-item locked">
+        <div class="milestone-check">🔒</div>
+        <div class="milestone-info">
+          <h4>-10 kg</h4>
+          <p>6.8 kg restants (68%)</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/accueil.js"></script>
+  <script src="js/user-data.js"></script>
+  <script src="js/progress.js"></script>
+</body>
+</html>

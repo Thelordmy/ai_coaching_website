@@ -65,40 +65,30 @@
     </button>
     
     <div class="welcome-section">
-      <h1>Bienvenue, Yahya! </h1>
+      <h1 id="welcomeName">Bienvenue!</h1>
       <p class="subtitle">Prêt à atteindre tes objectifs aujourd'hui ?</p>
     </div>
 
     <!-- Quick Stats -->
-    <div class="stats-grid">
-      <div class="stat-card" data-progress="75">
-        <i class="fas fa-bullseye stat-icon"></i>
-        <div class="stat-info">
-          <h3>75%</h3>
-          <p>Objectif atteint</p>
-          <div class="stat-progress">
-            <div class="stat-progress-fill"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="stats-grid" id="statsGrid"></div>
 
     <!-- Today's Workout -->
     <div class="section-card">
-      <h2>Entraînement d'aujourd'hui</h2>
-      <div class="workout-preview">
-        <div class="workout-info">
-          <h3>Journée des jambes</h3>
-          <p>6 exercices • 45 minutes • Intermédiaire</p>
-        </div>
-      </div>
+      <h2>Entraînements</h2>
+      <div id="workoutSection"></div>
     </div>
 
-    <!-- Nutrition summary removed (site is informational, not a tracker) -->
-
-    <!-- Quick Actions (kept only conversational action) -->
+    <!-- Log Workout Button -->
     <div class="quick-actions">
-      <button class="action-btn">
+      <button class="action-btn" onclick="window.location.href='workout-log.html'">
+        <i class="fas fa-plus-circle"></i>
+        <span>Journaliser une séance</span>
+      </button>
+      <button class="action-btn" onclick="window.location.href='exercise-library.html'">
+        <i class="fas fa-book"></i>
+        <span>Bibliothèque d'exercices</span>
+      </button>
+      <button class="action-btn" onclick="window.location.href='chat.html'">
         <i class="fas fa-comments"></i>
         <span>Parler au coach IA</span>
       </button>
@@ -106,5 +96,7 @@
   </main>
 
   <script src="js/accueil.js"></script>
+  <script src="js/user-data.js"></script>
+  <script src="js/dashboard.js"></script>
 </body>
 </html>

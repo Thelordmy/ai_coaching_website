@@ -1,0 +1,172 @@
+.profile-header {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 32px;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.profile-avatar {
+  width: 140px;
+  height: 140px;
+  background: linear-gradient(135deg, #7C3AED, #8b5cf6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 4rem;
+  flex-shrink: 0;
+}
+
+.profile-info h2 {
+  font-size: 2rem;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.profile-info p {
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+}
+
+.profile-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-stat-value {
+  font-size: 1.5rem;
+  color: #7C3AED;
+  font-weight: 800;
+}
+
+.profile-stat-label {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.profile-card {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.profile-card h3 {
+  font-size: 1.2rem;
+  color: #1f2937;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-card h3 i {
+  color: #7C3AED;
+  font-size: 1.3rem;
+}
+
+.info-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.info-value {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.edit-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #7C3AED 0%, #8b5cf6 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.edit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
+}
+
+.achievements {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 16px;
+}
+
+.achievement {
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: all 200ms ease;
+}
+
+.achievement.locked {
+  opacity: 0.5;
+}
+
+.achievement:not(.locked) {
+  border-color: #fbbf24;
+  background: #fffbeb;
+}
+
+.achievement-icon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+.achievement-name {
+  font-size: 0.85rem;
+  color: #374151;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-stats {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutrition - CoachIA</title>
+  <link rel="stylesheet" href="css/accueil.css">
+  <link rel="stylesheet" href="css/nutrition.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo"><a href="index.html">CoachIA</a></div>
+      <button class="toggle-sidebar-btn" id="toggleSidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="accueil.html" class="nav-item">
+        <i class="fas fa-home icon"></i>
+        <span>Accueil</span>
+      </a>
+      <a href="chat.html" class="nav-item">
+        <i class="fas fa-comments icon"></i>
+        <span>Chat IA</span>
+      </a>
+      <a href="workouts.html" class="nav-item">
+        <i class="fas fa-dumbbell icon"></i>
+        <span>Entraînements</span>
+      </a>
+      <a href="nutrition.html" class="nav-item active">
+        <i class="fas fa-utensils icon"></i>
+        <span>Nutrition</span>
+      </a>
+      <a href="progress.html" class="nav-item">
+        <i class="fas fa-chart-line icon"></i>
+        <span>Progrès</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <i class="fas fa-cog icon"></i>
+        <span>Paramètres</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <a href="profile.html" class="nav-item">
+        <i class="fas fa-user icon"></i>
+        <span>Profil</span>
+      </a>
+      <a href="index.html" class="nav-item">
+        <i class="fas fa-sign-out-alt icon"></i>
+        <span>Déconnexion</span>
+      </a>
+    </div>
+  </aside>
+  
+  <!-- Main content -->
+  <main class="main-content">
+    <button class="toggle-sidebar-btn-fixed" id="toggleSidebarFixed">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="welcome-section">
+      <h1>Nutrition</h1>
+      <p class="subtitle">Plans alimentaires adaptés à tes objectifs.</p>
+    </div>
+
+    <div class="nutrition-grid">
+      <div class="nutrition-card">
+        <h3><i class="fas fa-dumbbell"></i> Prise de Masse</h3>
+        <div class="macro-bars">
+          <div class="macro-item">
+            <div class="macro-label">
+              <span>Protéines</span>
+              <span>35%</span>
+            </div>
+            <div class="macro-bar">
+              <div class="macro-fill" style="width: 35%"></div>
+            </div>
+          </div>
+          <div class="macro-item">
+            <div class="macro-label">
+              <span>Glucides</span>
+              <span>45%</span>
+            </div>
+            <div class="macro-bar">
+              <div class="macro-fill" style="width: 45%"></div>
+            </div>
+          </div>
+          <div class="macro-item">
+            <div class="macro-label">
+              <span>Lipides</span>
+              <span>20%</span>
+            </div>
+            <div class="macro-bar">
+              <div class="macro-fill" style="width: 20%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="tips">
+          <ul>
+            <li>Surplus calorique 300-500 kcal</li>
+            <li>2g protéines/kg de poids</li>
+            <li>Glucides avant/après entraînement</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="nutrition-card">
+        <h3><i class="fas fa-fire"></i> Perte de Poids</h3>
+        <div class="macro-bars">
+          <div class="macro-item">
+            <div class="macro-label">
+              <span>Protéines</span>
+              <span>40%</span>
+            </div>
+            <div class="macro-bar">
+              <div class="macro-fill" style="width: 40%"></div>
+            </div>
+          </div>
+          <div class="macro-item">
+            <div class="macro-label">
+              <span>Glucides</span>
+              <span>35%</span>
+            </div>
+            <div class="macro-bar">
+              <div class="macro-fill" style="width: 35%"></div>
+            </div>
+          </div>
+          <div class="macro-item">
+            <div class="macro-label">
+              <span>Lipides</span>
+              <span>25%</span>
+            </div>
+            <div class="macro-bar">
+              <div class="macro-fill" style="width: 25%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="tips">
+          <ul>
+            <li>Déficit calorique 300-500 kcal</li>
+            <li>Protéines pour la satiété</li>
+            <li>Hydratation 3-4L/jour</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="nutrition-card">
+        <h3><i class="fas fa-balance-scale"></i> Équilibre</h3>
+        <div class="macro-bars">
+          <div class="macro-item">
+            <div class="macro-label">
+              <span>Protéines</span>
+              <span>30%</span>
+            </div>
+            <div class="macro-bar">
+              <div class="macro-fill" style="width: 30%"></div>
+            </div>
+          </div>
+          <div class="macro-item">
+            <div class="macro-label">
+              <span>Glucides</span>
+              <span>45%</span>
+            </div>
+            <div class="macro-bar">
+              <div class="macro-fill" style="width: 45%"></div>
+            </div>
+          </div>
+          <div class="macro-item">
+            <div class="macro-label">
+              <span>Lipides</span>
+              <span>25%</span>
+            </div>
+            <div class="macro-bar">
+              <div class="macro-fill" style="width: 25%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="tips">
+          <ul>
+            <li>Maintenance calorique</li>
+            <li>Alimentation variée</li>
+            <li>Repas réguliers (3-4/jour)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="food-list section-card">
+      <h2>Aliments Recommandés</h2>
+      
+      <div class="food-category">
+        <h3>Protéines</h3>
+        <div class="foods">
+          <div class="food-item">Poulet</div>
+          <div class="food-item">Œufs</div>
+          <div class="food-item">Poisson</div>
+          <div class="food-item">Yaourt grec</div>
+          <div class="food-item">Viande rouge</div>
+          <div class="food-item">Légumineuses</div>
+        </div>
+      </div>
+
+      <div class="food-category">
+        <h3>Glucides Complexes</h3>
+        <div class="foods">
+          <div class="food-item">Riz complet</div>
+          <div class="food-item">Pâtes complètes</div>
+          <div class="food-item">Avoine</div>
+          <div class="food-item">Patate douce</div>
+          <div class="food-item">Pain complet</div>
+          <div class="food-item">Quinoa</div>
+        </div>
+      </div>
+
+      <div class="food-category">
+        <h3>Graisses Saines</h3>
+        <div class="foods">
+          <div class="food-item">Avocat</div>
+          <div class="food-item">Noix</div>
+          <div class="food-item">Huile d'olive</div>
+          <div class="food-item">Saumon</div>
+          <div class="food-item">Amandes</div>
+          <div class="food-item">Graines</div>
+        </div>
+      </div>
+
+      <div class="food-category">
+        <h3>Fruits & Légumes</h3>
+        <div class="foods">
+          <div class="food-item">Bananes</div>
+          <div class="food-item">Brocoli</div>
+          <div class="food-item">Épinards</div>
+          <div class="food-item">Carottes</div>
+          <div class="food-item">Pommes</div>
+          <div class="food-item">Myrtilles</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/accueil.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journaliser un Entraînement - CoachIA</title>
+  <link rel="stylesheet" href="css/accueil.css">
+  <link rel="stylesheet" href="css/workout-log.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo"><a href="index.html">CoachIA</a></div>
+      <button class="toggle-sidebar-btn" id="toggleSidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="accueil.html" class="nav-item">
+        <i class="fas fa-home icon"></i>
+        <span>Accueil</span>
+      </a>
+      <a href="chat.html" class="nav-item">
+        <i class="fas fa-comments icon"></i>
+        <span>Chat IA</span>
+      </a>
+      <a href="workouts.html" class="nav-item">
+        <i class="fas fa-dumbbell icon"></i>
+        <span>Entraînements</span>
+      </a>
+      <a href="nutrition.html" class="nav-item">
+        <i class="fas fa-utensils icon"></i>
+        <span>Nutrition</span>
+      </a>
+      <a href="progress.html" class="nav-item">
+        <i class="fas fa-chart-line icon"></i>
+        <span>Progrès</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <i class="fas fa-cog icon"></i>
+        <span>Paramètres</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <a href="profile.html" class="nav-item">
+        <i class="fas fa-user icon"></i>
+        <span>Profil</span>
+      </a>
+      <a href="index.html" class="nav-item">
+        <i class="fas fa-sign-out-alt icon"></i>
+        <span>Déconnexion</span>
+      </a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <button class="toggle-sidebar-btn-fixed" id="toggleSidebarFixed">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="workout-log-container">
+      <div class="welcome-section">
+        <h1>Journaliser une Séance</h1>
+        <p class="subtitle">Enregistre les détails de ton entraînement d'aujourd'hui</p>
+      </div>
+
+      <div class="success-message" id="successMessage">✓ Séance enregistrée avec succès!</div>
+
+      <form id="workoutForm" novalidate>
+        <!-- Basic Info -->
+        <div class="form-card">
+          <h3><i class="fas fa-info-circle"></i> Informations Générales</h3>
+          <div class="form-row">
+            <div class="input-group">
+              <label for="workoutDate">Date</label>
+              <input type="date" id="workoutDate" name="workoutDate" required>
+            </div>
+            <div class="input-group">
+              <label for="workoutName">Type d'Entraînement</label>
+              <input type="text" id="workoutName" name="workoutName" placeholder="Ex: Force, Cardio, Yoga..." required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="input-group">
+              <label for="duration">Durée (minutes)</label>
+              <input type="number" id="duration" name="duration" min="5" max="300" value="60" required>
+            </div>
+            <div class="input-group">
+              <label for="intensity">Intensité</label>
+              <select id="intensity" name="intensity" required>
+                <option value="">Sélectionner...</option>
+                <option value="low">Basse</option>
+                <option value="medium">Moyenne</option>
+                <option value="high">Haute</option>
+                <option value="very-high">Très Haute</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Exercises -->
+        <div class="form-card">
+          <h3><i class="fas fa-list"></i> Exercices</h3>
+          <div id="exercisesList"></div>
+          
+          <div class="add-exercise-group">
+            <div class="form-row">
+              <div class="input-group">
+                <input type="text" id="exerciseName" placeholder="Nom de l'exercice...">
+              </div>
+              <div class="input-group">
+                <input type="number" id="exerciseSets" placeholder="Séries" min="1" max="10">
+              </div>
+              <div class="input-group">
+                <input type="number" id="exerciseReps" placeholder="Rép. par série" min="1" max="100">
+              </div>
+              <button type="button" class="btn-add" onclick="addExercise()">+ Ajouter</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-card">
+          <h3><i class="fas fa-comment"></i> Notes</h3>
+          <div class="form-row">
+            <div class="input-group" style="grid-column: 1 / -1;">
+              <label for="notes">Remarques (optionnel)</label>
+              <textarea id="notes" name="notes" placeholder="Comment tu te sentais? Difficultés? Améliorations?..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="submit">Enregistrer la Séance</button>
+          <button type="button" onclick="window.location.href='accueil.html'">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="js/accueil.js"></script>
+  <script src="js/user-data.js"></script>
+  <script src="js/workout-log.js"></script>
+</body>
+</html>

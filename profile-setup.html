@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuration du Profil - CoachIA</title>
+  <link rel="stylesheet" href="css/accueil.css">
+  <link rel="stylesheet" href="css/profile-setup.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo"><a href="index.html">CoachIA</a></div>
+      <button class="toggle-sidebar-btn" id="toggleSidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="accueil.html" class="nav-item">
+        <i class="fas fa-home icon"></i>
+        <span>Accueil</span>
+      </a>
+      <a href="chat.html" class="nav-item">
+        <i class="fas fa-comments icon"></i>
+        <span>Chat IA</span>
+      </a>
+      <a href="workouts.html" class="nav-item">
+        <i class="fas fa-dumbbell icon"></i>
+        <span>Entraînements</span>
+      </a>
+      <a href="nutrition.html" class="nav-item">
+        <i class="fas fa-utensils icon"></i>
+        <span>Nutrition</span>
+      </a>
+      <a href="progress.html" class="nav-item">
+        <i class="fas fa-chart-line icon"></i>
+        <span>Progrès</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <i class="fas fa-cog icon"></i>
+        <span>Paramètres</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <a href="profile.html" class="nav-item">
+        <i class="fas fa-user icon"></i>
+        <span>Profil</span>
+      </a>
+      <a href="index.html" class="nav-item">
+        <i class="fas fa-sign-out-alt icon"></i>
+        <span>Déconnexion</span>
+      </a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <button class="toggle-sidebar-btn-fixed" id="toggleSidebarFixed">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="profile-setup-container">
+      <div class="welcome-section">
+        <h1>Configure Ton Profil</h1>
+        <p class="subtitle">Aide-nous à personnaliser ta expérience CoachIA</p>
+      </div>
+
+      <div class="success-message" id="successMessage">✓ Profil sauvegardé avec succès!</div>
+
+      <form id="profileForm" novalidate>
+        <!-- Age & Basic Info -->
+        <div class="form-group">
+          <h3><i class="fas fa-birthday-cake"></i> Informations Personnelles</h3>
+          <div class="form-row">
+            <div class="input-group">
+              <label for="age">Âge</label>
+              <input type="number" id="age" name="age" min="13" max="120" required>
+            </div>
+            <div class="input-group">
+              <label for="gender">Sexe</label>
+              <select id="gender" name="gender" required>
+                <option value="">Sélectionner...</option>
+                <option value="M">Homme</option>
+                <option value="F">Femme</option>
+                <option value="O">Autre</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Physical Measurements -->
+        <div class="form-group">
+          <h3><i class="fas fa-ruler-vertical"></i> Mesures Physiques</h3>
+          <div class="form-row">
+            <div class="input-group">
+              <label for="weight">Poids (kg)</label>
+              <input type="number" id="weight" name="weight" min="30" max="300" step="0.1" required>
+            </div>
+            <div class="input-group">
+              <label for="height">Taille (cm)</label>
+              <input type="number" id="height" name="height" min="100" max="250" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Goals -->
+        <div class="form-group">
+          <h3><i class="fas fa-bullseye"></i> Objectifs (sélectionne un ou plusieurs)</h3>
+          <div class="checkbox-group">
+            <label class="checkbox-option">
+              <input type="checkbox" name="goal" value="perte">
+              <span>Perte de Poids</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" name="goal" value="prise">
+              <span>Prise de Masse Musculaire</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" name="goal" value="maintien">
+              <span>Maintien / Tonification</span>
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" name="goal" value="performance">
+              <span>Performance Athlétique</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Experience Level -->
+        <div class="form-group">
+          <h3><i class="fas fa-star"></i> Niveau d'Expérience</h3>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="level" value="beginner" required>
+              <label>Débutant</label>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="level" value="intermediate" required>
+              <label>Intermédiaire</label>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="level" value="advanced" required>
+              <label>Avancé</label>
+            </label>
+          </div>
+        </div>
+
+        <!-- Availability -->
+        <div class="form-group">
+          <h3><i class="fas fa-clock"></i> Disponibilité</h3>
+          <div class="form-row">
+            <div class="input-group">
+              <label for="daysPerWeek">Jours d'entraînement par semaine</label>
+              <input type="number" id="daysPerWeek" name="daysPerWeek" min="1" max="7" value="3" required>
+            </div>
+            <div class="input-group">
+              <label for="minutesPerDay">Minutes par séance</label>
+              <input type="number" id="minutesPerDay" name="minutesPerDay" min="15" max="300" value="60" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Target Weight (Optional) -->
+        <div class="form-group">
+          <h3><i class="fas fa-target"></i> Objectif de Poids (Optionnel)</h3>
+          <div class="form-row">
+            <div class="input-group">
+              <label for="targetWeight">Poids objectif (kg)</label>
+              <input type="number" id="targetWeight" name="targetWeight" min="30" max="300" step="0.1">
+            </div>
+            <div class="input-group">
+              <label for="targetDeadline">Délai (mois)</label>
+              <input type="number" id="targetDeadline" name="targetDeadline" min="1" max="24" value="3">
+            </div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn-submit">Sauvegarder Profil</button>
+          <button type="button" class="btn-skip" onclick="window.location.href='accueil.html'">Ignorer pour maintenant</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="js/accueil.js"></script>
+  <script src="js/user-data.js"></script>
+  <script src="js/profile-setup.js"></script>
+</body>
+</html>

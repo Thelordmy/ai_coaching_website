@@ -51,19 +51,15 @@ loginForm.addEventListener('submit', (e) => {
   
   // Simulate API call
   setTimeout(() => {
-    // In real app, this would validate with backend
-    // For now, just redirect to chat page
+    // Check if user has profile, if not redirect to profile setup
+    const profile = getUserProfile();
     
-    console.log('Login successful!');
-    // window.location.href = 'chat.html'; // Uncomment when chat page is ready
-    
-    // For demo, show success and reset
-    loginBtn.disabled = false;
-    loginBtn.textContent = 'Se connecter';
-    loginForm.reset();
-    
-    alert('Connexion réussie ! Redirection vers le chat...');
-  }, 1500);
+    if (!profile) {
+      window.location.href = 'profile-setup.html';
+    } else {
+      window.location.href = 'accueil.html';
+    }
+  }, 1000);
 });
 
 function showError(message) {
