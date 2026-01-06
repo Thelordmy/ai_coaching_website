@@ -472,7 +472,8 @@
 
   // Groq API configuration
   const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-  const GROQ_API_KEY = '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'; // Replace with your actual API key
+  // TODO: Move API key to environment variable or secure configuration
+  const GROQ_API_KEY = 'YOUR_GROQ_API_KEY_HERE'; // Replace with your actual API key
   const MODEL = 'llama-3.1-8b-instant'; // Fast Groq model
   
   // Check if this is first-time user in chat

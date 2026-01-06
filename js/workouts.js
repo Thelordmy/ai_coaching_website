@@ -1,5 +1,6 @@
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_API_KEY = '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';
+// TODO: Move API key to environment variable or secure configuration
+const GROQ_API_KEY = 'YOUR_GROQ_API_KEY_HERE';
 const MODEL = 'llama-3.1-8b-instant';
 const PENDING_WORKOUTS_KEY = 'coachia_pending_workouts';
 
@@ -67,6 +68,52 @@ function loadWorkouts() {
   grid.style.display = 'grid';
   emptyState.style.display = 'none';
   firstTimeWelcome.style.display = 'none';
+
+  grid.innerHTML = workouts.map((workout, idx) => `
+    <div class="workout-card" style="animation: fadeInUp 0.6s ease-out ${idx * 0.1}s backwards;">
+      <div class="workout-card-header">
+        <h3>${workout.name}</h3>
+        <button class="btn-delete-workout" aria-label="Supprimer cet entraînement" onclick="handleDeleteWorkout(${workout.id || idx})">✕</button>
+      </div>
+      <span class="difficulty ${workout.intensity || 'medium'}">
+        ${workout.intensity === 'low' ? 'Légère' : workout.intensity === 'medium' ? 'Modérée' : workout.intensity === 'high' ? 'Élevée' : 'Modérée'}
+      </span>
+      <div class="workout-info">
+        <p><strong>${workout.duration || 60} minutes</strong></p>
+        <p><strong>${workout.exercises?.length || 0} exercices</strong></p>
+        <p><small>${new Date(workout.date).toLocaleDateString('fr-FR')}</small></p>
+      </div>
+      ${workout.type === 'ai-generated' && workout.content ? `
+        <div style="margin-top: 12px; padding: 16px; background: linear-gradient(to bottom right, #faf5ff, #f9fafb); border-radius: 12px; border: 1px solid #e9d5ff; font-size: 0.9rem;">
+          ${formatAIWorkout(workout.content)}
+        </div>
+      ` : workout.exercises && workout.exercises.length > 0 ? `
+        <div class="exercise-list">
+          ${workout.exercises.map(ex => typeof ex === 'string' ? `<p>• ${ex}</p>` : `<p>• ${ex.name} ${ex.sets}×${ex.reps}</p>`).join('')}
+        </div>
+      ` : '<p style="color: #9ca3af; font-size: 0.9rem;">Pas d\'exercices enregistrés</p>'}
+      ${workout.notes ? `<p style="font-size: 0.9rem; color: #6b7280; margin-top: 12px;"><strong>Notes:</strong> ${workout.notes}</p>` : ''}
+      <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="btn-start" onclick="openWorkoutDetail(${workout.id || idx})">Voir le détail</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderWorkoutGrid(workouts) {
+  const grid = document.getElementById('workoutGrid');
+  const emptyState = document.getElementById('emptyState');
+  const firstTimeWelcome = document.getElementById('firstTimeWelcome');
+
+  if (!workouts || workouts.length === 0) {
+    grid.style.display = 'none';
+    emptyState.style.display = 'block';
+    return;
+  }
+
+  grid.style.display = 'grid';
+  emptyState.style.display = 'none';
+  if (firstTimeWelcome) firstTimeWelcome.style.display = 'none';
 
   grid.innerHTML = workouts.map((workout, idx) => `
     <div class="workout-card" style="animation: fadeInUp 0.6s ease-out ${idx * 0.1}s backwards;">
