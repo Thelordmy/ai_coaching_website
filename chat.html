@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+  <!-- Mobile Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
   <!-- Sidebar (copied from accueil for consistency) -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
@@ -64,7 +67,10 @@
         <h2>Chat IA</h2>
         <p class="subtitle">Pose une question au coach IA — réponses instantanées.</p>
       </div>
-      <button id="clearHistoryBtn" style="padding: 10px 16px; background: #fee2e2; color: #991b1b; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 200ms; margin-left: 16px;" onclick="clearChatHistory()">Effacer l'historique</button>
+      <div style="display: flex; gap: 8px;">
+        <button id="testWorkoutBtn" style="padding: 10px 16px; background: #10b981; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 200ms;" onclick="testWorkoutRender()">Test Workout</button>
+        <button id="clearHistoryBtn" style="padding: 10px 16px; background: #fee2e2; color: #991b1b; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 200ms;" onclick="clearChatHistory()">Effacer l'historique</button>
+      </div>
     </div>
 
     <section class="chat-container section-card">
@@ -83,6 +89,16 @@
 
   <script src="js/accueil.js"></script>
   <script src="js/user-data.js"></script>
-  <script src="js/chat.js"></script>
+  <script src="js/exercise-db.js"></script>
+  <!-- cache-bust to avoid stale/partial loads during live-server -->
+  <script src="js/chat.js?v=4"></script>
+  <script>
+    // Fallback: ensure the test button never breaks if chat.js failed to load
+    window.addEventListener('DOMContentLoaded', () => {
+      if (typeof window.testWorkoutRender !== 'function') {
+        window.testWorkoutRender = () => alert('chat.js ne s\'est pas chargé. Vérifie la console réseau.');
+      }
+    });
+  </script>
 </body>
 </html>

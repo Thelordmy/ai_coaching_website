@@ -101,7 +101,6 @@ function loadWorkouts() {
 
 async function generateAIWorkout() {
   const profile = getUserProfile();
-  console.log('Profile loaded:', profile);
   
   if (!profile || !profile.goal || profile.goal.length === 0) {
     alert('Complète d\'abord ton profil pour générer un programme personnalisé!');
@@ -112,7 +111,6 @@ async function generateAIWorkout() {
   const btn = event.target;
   btn.disabled = true;
   btn.textContent = '⏳ Génération en cours...';
-  console.log('Starting generation...');
 
   try {
     const goals = Array.isArray(profile.goal) ? profile.goal.join(', ') : profile.goal;
@@ -136,8 +134,6 @@ Crée un programme avec:
 
 Format ta réponse de façon claire et structurée.`;
 
-    console.log('Sending request to Groq:', { url: GROQ_API_URL, model: MODEL });
-    
     const response = await fetch(GROQ_API_URL, {
       method: 'POST',
       headers: {
@@ -152,23 +148,17 @@ Format ta réponse de façon claire et structurée.`;
       }),
     });
 
-    console.log('Response status:', response.status);
-
     if (!response.ok) {
       const error = await response.json();
-      console.error('API error response:', error);
       throw new Error(`API Error (${response.status}): ${error.message || response.statusText}`);
     }
 
     const data = await response.json();
-    console.log('Groq response:', data);
     
     const aiResponse = data.choices[0].message.content;
-    console.log('Generated workout:', aiResponse);
 
     // Extract exercise names from the response (look for **Exercise** patterns)
     const exerciseMatches = aiResponse.match(/\*\*[^*]+\*\*/g) || [];
-    console.log('All bold text found:', exerciseMatches);
     
     // Try to match each bolded text to exercises in database
     const exercises = [];
@@ -187,7 +177,6 @@ Format ta réponse de façon claire et structurée.`;
         );
         if (fuzzyMatch) {
           exerciseData = getExerciseData(fuzzyMatch);
-          console.log(`Fuzzy matched "${name}" to "${fuzzyMatch}"`);
         }
       }
       
@@ -196,12 +185,6 @@ Format ta réponse de façon claire et structurée.`;
       }
     });
     
-    console.log('Matched exercises with images:', exercises);
-    console.log('Exercises without matches:', exerciseMatches
-      .map(m => m.replace(/\*\*/g, '').trim())
-      .filter(name => !exercises.some(ex => name.toLowerCase().includes(ex.toLowerCase())))
-    );
-
     // Save the generated workout to localStorage
     const newWorkout = {
       id: Date.now(),
@@ -217,16 +200,14 @@ Format ta réponse de façon claire et structurée.`;
     
     // Store in temporary array for the save button
     generatedWorkouts.push(newWorkout);
-    console.log('Workout stored in generatedWorkouts:', newWorkout);
 
     // Persist to pending storage so chat page can save later
     try {
       const pending = JSON.parse(localStorage.getItem(PENDING_WORKOUTS_KEY) || '[]');
       pending.push(newWorkout);
       localStorage.setItem(PENDING_WORKOUTS_KEY, JSON.stringify(pending));
-      console.log('Workout stored in pending queue:', newWorkout.id);
     } catch (e) {
-      console.error('Failed to store pending workout', e);
+      // Silently fail on storage error
     }
     
     // Create exercise cards HTML
@@ -353,14 +334,41 @@ window.saveWorkoutFromChat = function(workoutId) {
 
 // Delete a workout and refresh the list
 window.handleDeleteWorkout = function(workoutId) {
-  if (!confirm('Supprimer ce programme ?')) return;
+  // Store the ID for the confirmation handler
+  window.pendingDeleteId = workoutId;
+  
+  // Open the delete confirmation modal
+  const modal = document.getElementById('deleteConfirmModal');
+  if (modal) {
+    modal.style.display = 'grid';
+  }
+};
+
+// Confirm deletion
+window.confirmDelete = function() {
+  const workoutId = window.pendingDeleteId;
+  if (!workoutId) return;
+  
   const ok = deleteWorkout(workoutId);
   if (!ok) {
     alert('❌ Impossible de supprimer ce programme pour le moment.');
+    closeDeleteConfirm();
     return;
   }
+  
+  closeDeleteConfirm();
   loadWorkouts();
 };
+
+// Close delete confirmation modal
+window.closeDeleteConfirm = function() {
+  const modal = document.getElementById('deleteConfirmModal');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+  window.pendingDeleteId = null;
+};
+
 
 // Show workout detail modal
 window.openWorkoutDetail = function(workoutId) {
@@ -416,3 +424,86 @@ window.closeWorkoutDetail = function() {
 };
 
 document.addEventListener('DOMContentLoaded', loadWorkouts);
+
+/**
+ * Filter workouts based on search and filter criteria
+ */
+function filterWorkouts() {
+  const searchInput = document.getElementById('workoutSearchInput');
+  const typeFilter = document.getElementById('typeFilter');
+  const durationFilter = document.getElementById('durationFilter');
+  
+  const searchTerm = (searchInput?.value || '').toLowerCase();
+  const typeValue = typeFilter?.value || '';
+  const durationValue = durationFilter?.value || '';
+  
+  const allWorkouts = getWorkouts();
+  
+  // Apply filters
+  let filtered = allWorkouts.filter(workout => {
+    // Search filter
+    if (searchTerm) {
+      const name = (workout.name || '').toLowerCase();
+      const notes = (workout.notes || '').toLowerCase();
+      const matchesSearch = name.includes(searchTerm) || notes.includes(searchTerm);
+      if (!matchesSearch) return false;
+    }
+    
+    // Type filter
+    if (typeValue && workout.type !== typeValue) {
+      return false;
+    }
+    
+    // Duration filter
+    if (durationValue) {
+      const duration = parseInt(workout.duration) || 60;
+      if (durationValue === 'short' && duration >= 30) return false;
+      if (durationValue === 'medium' && (duration < 30 || duration > 60)) return false;
+      if (durationValue === 'long' && duration <= 60) return false;
+    }
+    
+    return true;
+  });
+  
+  // Render filtered results
+  renderWorkoutGrid(filtered);
+  
+  // Show filter info
+  const infoElement = document.getElementById('filterResultsInfo');
+  if (infoElement) {
+    if (filtered.length === 0) {
+      infoElement.textContent = 'Aucun entraînement ne correspond à tes critères.';
+    } else {
+      infoElement.textContent = `${filtered.length} entraînement(s) trouvé(s)`;
+    }
+  }
+}
+
+/**
+ * Clear all filters
+ */
+function clearWorkoutFilters() {
+  const searchInput = document.getElementById('workoutSearchInput');
+  const typeFilter = document.getElementById('typeFilter');
+  const durationFilter = document.getElementById('durationFilter');
+  
+  if (searchInput) searchInput.value = '';
+  if (typeFilter) typeFilter.value = '';
+  if (durationFilter) durationFilter.value = '';
+  
+  const infoElement = document.getElementById('filterResultsInfo');
+  if (infoElement) infoElement.textContent = '';
+  
+  loadWorkouts();
+}
+
+// Add event listeners for filters
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('workoutSearchInput');
+  const typeFilter = document.getElementById('typeFilter');
+  const durationFilter = document.getElementById('durationFilter');
+  
+  if (searchInput) searchInput.addEventListener('input', filterWorkouts);
+  if (typeFilter) typeFilter.addEventListener('change', filterWorkouts);
+  if (durationFilter) durationFilter.addEventListener('change', filterWorkouts);
+});

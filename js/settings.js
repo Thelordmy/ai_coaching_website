@@ -26,9 +26,16 @@ function loadSettings() {
   return saved ? JSON.parse(saved) : defaultSettings;
 }
 
-// Save settings to localStorage
+// Save settings to localStorage and user profile
 function saveSettings(settings) {
   localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  
+  // Also update user profile with settings
+  const profile = getUserProfile();
+  if (profile) {
+    profile.settings = settings;
+    saveUserProfile(profile);
+  }
 }
 
 // Get current settings from the form

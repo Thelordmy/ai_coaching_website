@@ -1,5 +1,13 @@
 /* Chat page styles */
 
+:root {
+  --z-base: 1;
+  --z-overlay: 999;
+  --z-sidebar: 1000;
+  --z-modal: 1001;
+  --z-tooltip: 1002;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -17,6 +25,25 @@ body {
   min-height: 100vh;
 }
 
+/* Mobile Overlay */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: var(--z-overlay);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.sidebar-overlay.show {
+  display: block;
+  opacity: 1;
+}
+
 /* Sidebar */
 .sidebar {
   width: 280px;
@@ -29,7 +56,7 @@ body {
   left: 0;
   top: 0;
   transition: transform 300ms ease;
-  z-index: 1000;
+  z-index: var(--z-sidebar);
 }
 
 .sidebar.collapsed {
@@ -356,43 +383,59 @@ body {
 /* Responsive */
 @media (max-width: 768px) {
   .sidebar {
-    width: 80px;
+    transform: translateX(-280px);
+    z-index: 1001;
   }
   
-  .sidebar-header,
-  .sidebar-footer {
-    padding: 24px 12px;
-  }
-  
-  .logo {
-    font-size: 1.2rem;
-    text-align: center;
-  }
-  
-  .nav-item span {
-    display: none;
-  }
-  
-  .nav-item {
-    justify-content: center;
-    padding: 14px 12px;
-  }
-  
-  .nav-item.active {
-    border-left: none;
-    border-bottom: 3px solid #ffffff;
+  .sidebar.show {
+    transform: translateX(0);
   }
   
   .main-content {
-    margin-left: 80px;
-    padding: 24px;
+    margin-left: 0;
+    padding: 80px 24px 24px;
+  }
+  
+  .toggle-sidebar-btn-fixed {
+    display: flex;
   }
   
   .chat-container {
-    height: calc(100vh - 200px);
+    height: calc(100vh - 180px);
   }
   
   .message {
     max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 70px 12px 12px;
+  }
+  
+  .chat-container {
+    height: calc(100vh - 160px);
+  }
+  
+  .message {
+    max-width: 95%;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+  
+  .chat-input-container {
+    padding: 12px;
+    gap: 8px;
+  }
+  
+  .chat-input {
+    font-size: 0.95rem;
+    padding: 12px 14px;
+  }
+  
+  .send-btn {
+    width: 44px;
+    height: 44px;
   }
 }

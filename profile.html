@@ -9,10 +9,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+  
+  <!-- Mobile Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <div class="logo"><a href="index.html">CoachIA</a></div>
+      <div class="logo"> <a href="index.html">CoachIA</a></div>
       <button class="toggle-sidebar-btn" id="toggleSidebar">
         <i class="fas fa-bars"></i>
       </button>
@@ -66,19 +70,19 @@
     <div class="profile-header">
       <div class="profile-avatar">👤</div>
       <div class="profile-info">
-        <h2>Yahya Mouhib</h2>
-        <p>Membre depuis 15 Janvier 2026</p>
+        <h2 id="profileName">Profil Utilisateur</h2>
+        <p id="memberSince">Membre depuis aujourd'hui</p>
         <div class="profile-stats">
           <div class="profile-stat">
-            <div class="profile-stat-value">18</div>
+            <div class="profile-stat-value" id="workoutCount">0</div>
             <div class="profile-stat-label">Entraînements</div>
           </div>
           <div class="profile-stat">
-            <div class="profile-stat-value">75%</div>
+            <div class="profile-stat-value" id="progressPercent">0%</div>
             <div class="profile-stat-label">Objectif</div>
           </div>
           <div class="profile-stat">
-            <div class="profile-stat-value">31</div>
+            <div class="profile-stat-value" id="streakCount">0</div>
             <div class="profile-stat-label">Jours Streak</div>
           </div>
         </div>
@@ -91,22 +95,22 @@
         
         <div class="info-item">
           <span class="info-label">Email</span>
-          <span class="info-value">yahya.mouhib@email.com</span>
+          <span class="info-value" id="emailValue">Non défini</span>
         </div>
         
         <div class="info-item">
           <span class="info-label">Téléphone</span>
-          <span class="info-value">+33 6 XX XX XX XX</span>
+          <span class="info-value" id="phoneValue">Non défini</span>
         </div>
         
         <div class="info-item">
           <span class="info-label">Nationalité</span>
-          <span class="info-value">Français</span>
+          <span class="info-value" id="nationalityValue">Non défini</span>
         </div>
         
         <div class="info-item">
           <span class="info-label">Lieu</span>
-          <span class="info-value">Paris, France</span>
+          <span class="info-value" id="locationValue">Non défini</span>
         </div>
 
         <button class="edit-btn">Modifier le profil</button>
@@ -117,22 +121,22 @@
         
         <div class="info-item">
           <span class="info-label">Poids Actuel</span>
-          <span class="info-value">77.8 kg</span>
+          <span class="info-value" id="weightValue">Non défini</span>
         </div>
         
         <div class="info-item">
           <span class="info-label">Taille</span>
-          <span class="info-value">180 cm</span>
+          <span class="info-value" id="heightValue">Non défini</span>
         </div>
         
         <div class="info-item">
           <span class="info-label">IMC</span>
-          <span class="info-value">24.0 (Normal)</span>
+          <span class="info-value" id="bmiValue">Non défini</span>
         </div>
         
         <div class="info-item">
           <span class="info-label">Objectif de Poids</span>
-          <span class="info-value">75 kg</span>
+          <span class="info-value" id="goalWeightValue">Non défini</span>
         </div>
 
         <button class="edit-btn">Mettre à jour</button>
@@ -143,22 +147,22 @@
         
         <div class="info-item">
           <span class="info-label">Objectif Principal</span>
-          <span class="info-value">Perte de Poids</span>
+          <span class="info-value" id="goalValue">Non défini</span>
         </div>
         
         <div class="info-item">
           <span class="info-label">Fréquence Entraînement</span>
-          <span class="info-value">5 fois/semaine</span>
+          <span class="info-value" id="frequencyValue">Non défini</span>
         </div>
         
         <div class="info-item">
           <span class="info-label">Délai</span>
-          <span class="info-value">3 mois</span>
+          <span class="info-value" id="deadlineValue">Non défini</span>
         </div>
         
         <div class="info-item">
           <span class="info-label">Type d'Entraînement</span>
-          <span class="info-value">Force + Cardio</span>
+          <span class="info-value" id="trainingTypeValue">Non défini</span>
         </div>
 
         <button class="edit-btn">Modifier les objectifs</button>
@@ -169,22 +173,22 @@
         
         <div class="info-item">
           <span class="info-label">Lieu d'Entraînement</span>
-          <span class="info-value">Salle de Gym</span>
+          <span class="info-value" id="trainingLocationValue">Non défini</span>
         </div>
         
         <div class="info-item">
           <span class="info-label">Équipement Disponible</span>
-          <span class="info-value">Complet</span>
+          <span class="info-value" id="equipmentValue">Non défini</span>
         </div>
         
         <div class="info-item">
           <span class="info-label">Heure Préférée</span>
-          <span class="info-value">18h30 - 19h30</span>
+          <span class="info-value" id="preferredTimeValue">Non défini</span>
         </div>
         
         <div class="info-item">
           <span class="info-label">Limitation Actuelle</span>
-          <span class="info-value">Aucune</span>
+          <span class="info-value" id="limitationsValue">Aucune</span>
         </div>
 
         <button class="edit-btn">Mettre à jour</button>
@@ -222,6 +226,8 @@
     </div>
   </main>
 
+  <script src="js/user-data.js"></script>
   <script src="js/accueil.js"></script>
+  <script src="js/profile.js"></script>
 </body>
 </html>

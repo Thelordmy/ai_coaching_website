@@ -4,6 +4,8 @@
   const chatInput = document.getElementById('chatInput');
   const chatWindow = document.getElementById('chatWindow');
   const PENDING_WORKOUTS_KEY = 'coachia_pending_workouts';
+  let isSending = false;
+  let lastSentAt = 0;
 
   // Restore history from localStorage
   const STORAGE_KEY = 'coachia_chat_history_v1';
@@ -13,6 +15,18 @@
       if (!raw) return;
       const items = JSON.parse(raw);
       items.forEach(m => {
+        // Check if message is a workout JSON
+        if (m.sender === 'bot' && typeof m.text === 'string' && m.text.trim().startsWith('{')) {
+          try {
+            const parsed = JSON.parse(m.text);
+            if (parsed.type === 'workout') {
+              renderWorkout(parsed);
+              return;
+            }
+          } catch (e) {
+            // Not valid JSON, fall through to regular message
+          }
+        }
         // Auto-flag saved workout messages that contain our save button markup
         const hasHtmlFlag = m.hasHTML || (typeof m.text === 'string' && m.text.includes('save-button-wrap'));
         appendMessage(m.sender, m.text, false, hasHtmlFlag);
@@ -28,13 +42,40 @@
       const raw = localStorage.getItem(STORAGE_KEY);
       const arr = raw ? JSON.parse(raw) : [];
       arr.push({ sender, text, t: Date.now(), hasHTML });
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr.slice(-200)));
-    } catch (e) {}
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(arr.slice(-200)));
+      } catch (e) {
+        // Handle quota exceeded by trimming more aggressively
+        if (e && (e.name === 'QuotaExceededError' || e.code === 22)) {
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(arr.slice(-50)));
+          } catch (_) {
+            console.warn('Storage is full; unable to persist more messages');
+          }
+        } else {
+          console.warn('Failed to save chat message', e);
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to access chat storage', e);
+    }
+  }
+
+  function escapeHtml(str) {
+    if (typeof str !== 'string') return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
   }
 
   function formatMarkdown(text) {
     // Convert markdown-style formatting to HTML
-    let html = text
+    // First, escape any raw HTML to prevent injection
+    let safe = escapeHtml(text || '');
+    let html = safe
       // Bold: **text** -> <strong>text</strong>
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       // New lines stay as new lines
@@ -109,7 +150,7 @@
     
     // Use formatted HTML for bot messages (to render markdown), plain text for user
     if (sender === 'bot') {
-      // Render raw HTML when flagged, otherwise apply markdown formatting
+      // Render raw HTML when flagged (built by us), otherwise apply markdown formatting
       body.innerHTML = hasHTML ? text : formatMarkdown(text);
     } else {
       body.textContent = text;
@@ -119,6 +160,156 @@
     chatWindow.appendChild(el);
     if (save) saveMessage(sender, text, hasHTML);
     scrollToBottom();
+  }
+
+  // Render a workout card in the chat (matching the generator preview with images + muscle/difficulty)
+  function renderWorkout(workout) {
+    const el = document.createElement('div');
+    el.className = 'message bot';
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent = 'Coach IA';
+    el.appendChild(meta);
+
+    const body = document.createElement('div');
+    body.className = 'body';
+
+    const workoutPreview = document.createElement('div');
+    workoutPreview.style.cssText = 'background: white; border-radius: 14px; padding: 24px; margin-top: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); border: 1px solid #f1f5f9;';
+
+    // Title
+    const title = document.createElement('h3');
+    title.textContent = workout.title || 'Programme Débutant';
+    title.style.cssText = 'color: #111827; font-size: 1.6rem; font-weight: 800; margin: 0 0 12px 0; letter-spacing: -0.3px;';
+    workoutPreview.appendChild(title);
+
+    // Description/notes
+    if (workout.notes) {
+      const description = document.createElement('p');
+      description.textContent = workout.notes;
+      description.style.cssText = 'color: #4b5563; font-size: 1rem; line-height: 1.6; margin: 0 0 22px 0;';
+      workoutPreview.appendChild(description);
+    }
+
+    // Label for exercises
+    if (workout.exercises && workout.exercises.length > 0) {
+      const label = document.createElement('div');
+      label.textContent = 'Aperçu des exercices';
+      label.style.cssText = 'font-weight: 700; color: #111827; margin: 0 0 12px 0; font-size: 1.05rem;';
+      workoutPreview.appendChild(label);
+    }
+
+    // Exercise list with muscle/difficulty when available
+    // Simple synonym mapper to match French names to DB entries
+    function mapToDbName(name) {
+      const n = (name || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const synonyms = {
+        'squat': 'Squats',
+        'developpe couche': 'Bench Press',
+        'poussee de banc': 'Bench Press',
+        'press a la hallebarde': 'Shoulder Press',
+        'abdominaux': 'Crunches',
+        'pompes': 'Push-ups',
+        'tractions': 'Pull-ups',
+        'fentes': 'Lunges',
+        'planche': 'Plank'
+      };
+      for (const key in synonyms) {
+        if (n.includes(key)) return synonyms[key];
+      }
+      return null;
+    }
+
+    const PLACEHOLDER = 'assets/images/exercise-placeholder.svg';
+    (workout.exercises || []).forEach(ex => {
+      let exData = typeof getExerciseData === 'function' ? getExerciseData(ex.name || ex) : null;
+      if (!exData && typeof getExerciseData === 'function') {
+        const mapped = mapToDbName(ex.name || ex);
+        if (mapped) exData = getExerciseData(mapped);
+      }
+      const imgSrc = (ex.image && ex.image !== PLACEHOLDER)
+        ? ex.image
+        : (exData?.image || PLACEHOLDER);
+      const muscle = exData?.muscle || '';
+      const difficulty = exData?.difficulty || '';
+
+      const exerciseItem = document.createElement('div');
+      exerciseItem.style.cssText = 'display: flex; align-items: center; gap: 14px; padding: 14px; border: 1px solid #e5e7eb; border-radius: 10px; margin-bottom: 12px; background: #f8fafc;';
+
+      const img = document.createElement('img');
+      img.src = imgSrc;
+      img.alt = ex.name || exData?.name || '';
+      img.style.cssText = 'width: 110px; height: 88px; border-radius: 10px; object-fit: cover; flex-shrink: 0; background: #e5e7eb;';
+      img.onerror = function() { this.src = 'assets/images/exercise-placeholder.svg'; };
+
+      const info = document.createElement('div');
+      info.style.cssText = 'flex: 1;';
+
+      const name = document.createElement('div');
+      name.textContent = ex.name || exData?.name || '';
+      name.style.cssText = 'color: #111827; font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;';
+
+      const reps = document.createElement('div');
+      reps.textContent = ex.reps || '';
+      reps.style.cssText = 'color: #374151; font-size: 0.95rem; margin-bottom: 3px;';
+
+      const metaLine = document.createElement('div');
+      metaLine.style.cssText = 'color: #6b7280; font-size: 0.9rem;';
+      metaLine.textContent = [muscle ? `Muscle: ${muscle}` : '', difficulty ? `Difficulté: ${difficulty}` : ''].filter(Boolean).join('  ·  ');
+
+      info.appendChild(name);
+      info.appendChild(reps);
+      if (metaLine.textContent) info.appendChild(metaLine);
+
+      exerciseItem.appendChild(img);
+      exerciseItem.appendChild(info);
+      workoutPreview.appendChild(exerciseItem);
+    });
+
+    // Save button (full width, purple)
+    const saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Sauvegarder le programme';
+    saveBtn.style.cssText = 'width: 100%; padding: 16px 20px; background: linear-gradient(135deg, #7C3AED 0%, #7b3af5 100%); color: white; border: none; border-radius: 10px; font-size: 1.05rem; font-weight: 700; cursor: pointer; margin-top: 16px; transition: all 200ms ease; box-shadow: 0 8px 20px rgba(124,58,237,0.25);';
+    saveBtn.addEventListener('click', () => saveWorkoutFromRender(workout));
+    saveBtn.addEventListener('mouseenter', () => {
+      saveBtn.style.transform = 'translateY(-1px)';
+      saveBtn.style.boxShadow = '0 10px 24px rgba(124,58,237,0.32)';
+    });
+    saveBtn.addEventListener('mouseleave', () => {
+      saveBtn.style.transform = 'translateY(0)';
+      saveBtn.style.boxShadow = '0 8px 20px rgba(124,58,237,0.25)';
+    });
+    workoutPreview.appendChild(saveBtn);
+
+    body.appendChild(workoutPreview);
+    el.appendChild(body);
+    chatWindow.appendChild(el);
+    scrollToBottom();
+  }
+
+  // Save a workout generated from chat
+  function saveWorkoutFromRender(workout) {
+    try {
+      const KEY = 'coachia_saved_workouts_v1';
+      const raw = localStorage.getItem(KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      
+      // Add id and timestamp if not present
+      const workoutToSave = Object.assign({}, workout, {
+        id: workout.id || Date.now(),
+        savedAt: Date.now(),
+        date: new Date().toISOString()
+      });
+      
+      arr.push(workoutToSave);
+      localStorage.setItem(KEY, JSON.stringify(arr));
+      
+      alert('Programme sauvegardé ✓');
+    } catch (e) {
+      console.error('Erreur sauvegarde', e);
+      alert('Impossible de sauvegarder le programme.');
+    }
   }
 
     // Save handler for workout chip in chat
@@ -219,11 +410,11 @@
       if (!exercise) return '';
       return `
         <div style="padding: 12px; border: 1px solid #e5e7eb; border-radius: 8px; background: #f9fafb; display: flex; gap: 12px; align-items: center;">
-          <img src="${exercise.image}" alt="${exercise.name}" style="width: 96px; height: 96px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" onerror="this.src='assets/images/exercise-placeholder.svg';">
+          <img src="${exercise.image}" alt="${escapeHtml(exercise.name)}" style="width: 96px; height: 96px; border-radius: 10px; object-fit: cover; flex-shrink: 0;" onerror="this.src='assets/images/exercise-placeholder.svg';">
           <div>
-            <strong>${exercise.name}</strong>
-            <div style="font-size: 0.9rem; color: #6b7280;">Muscle: ${exercise.muscle}</div>
-            <div style="font-size: 0.9rem; color: #6b7280;">Difficulté: ${exercise.difficulty}</div>
+            <strong>${escapeHtml(exercise.name)}</strong>
+            <div style="font-size: 0.9rem; color: #6b7280;">Muscle: ${escapeHtml(exercise.muscle)}</div>
+            <div style="font-size: 0.9rem; color: #6b7280;">Difficulté: ${escapeHtml(exercise.difficulty)}</div>
           </div>
         </div>
       `;
@@ -322,6 +513,20 @@ If a user asks about anything outside this domain:
 • Politely redirect the conversation back to those areas
 • Do NOT answer the unrelated question
 
+WORKOUT GENERATION (CRITICAL):
+When user asks to "generate", "create", or "make" a workout program using keywords like "génère", "programme", "créer", "faire", "entraînement", respond with ONLY a valid JSON object (no markdown, no code blocks, no other text):
+{
+  "type": "workout",
+  "title": "Programme Débutant",
+  "notes": "Ce programme est conçu pour les débutants qui veulent commencer à s'entraîner régulièrement.",
+  "exercises": [
+    {"name": "Squat", "reps": "3x8", "image": "assets/images/exercise-placeholder.svg"},
+    {"name": "Push-Up", "reps": "3x10", "image": "assets/images/exercise-placeholder.svg"},
+    {"name": "Plank", "reps": "3x30s", "image": "assets/images/exercise-placeholder.svg"}
+  ]
+}
+IMPORTANT: Return ONLY the JSON. No text before or after. No markdown formatting. Just the raw JSON object.
+
 PERSONALIZATION APPROACH (NO FORCED INTAKE):
 • If profile data is available, use it.
 • If data is missing, still provide a concise, ready-to-use plan; only ask 1-2 quick clarifying questions if they are truly critical to tailoring the answer.
@@ -419,25 +624,37 @@ Utilise ces infos pour personnaliser tes conseils.`;
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Groq API error response:', errorText);
-        console.error('Response status:', response.status);
         throw new Error(`API Error ${response.status}: ${errorText}`);
       }
 
       const data = await response.json();
-      console.log('Groq API response:', data);
       return data.choices[0].message.content.trim();
     } catch (error) {
-      console.error('Error calling Groq:', error);
-      console.error('Error details:', error.message);
       return `Désolé, impossible de se connecter au coach IA.\n\nErreur: ${error.message}\n\nVérifie:\n• Ta connexion internet\n• La clé API Groq dans chat.js\n• La console (F12) pour plus de détails`;
     }
+  }
+
+  // Input validation
+  const MAX_MESSAGE_LENGTH = 2000;
+  if (chatInput) {
+    chatInput.maxLength = MAX_MESSAGE_LENGTH;
   }
 
   chatForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const text = chatInput.value.trim();
     if (!text) return;
+    if (text.length > MAX_MESSAGE_LENGTH) {
+      alert(`Message trop long. Maximum ${MAX_MESSAGE_LENGTH} caractères.`);
+      return;
+    }
+    const now = Date.now();
+    if (isSending || (now - lastSentAt) < 1200) {
+      return; // throttle rapid submissions
+    }
+    isSending = true;
+    lastSentAt = now;
+    chatInput.disabled = true;
     appendMessage('user', text, true);
     chatInput.value = '';
 
@@ -448,13 +665,47 @@ Utilise ces infos pour personnaliser tes conseils.`;
     chatWindow.appendChild(typing);
     scrollToBottom();
 
-    // get response from Ollama
-    const reply = await getOllamaReply(text);
+    // get response from AI
+    let reply = await getOllamaReply(text);
     typing.remove();
     
-    // Check if reply contains a workout plan and enhance with exercise images
-    const enhancedReply = enhanceWorkoutResponse(reply);
-    appendMessage('bot', enhancedReply.content, true, enhancedReply.hasHTML);
+    // Try to detect and parse workout JSON
+    let workoutObj = null;
+    try {
+      const trimmedReply = reply.trim();
+      
+      // Try to extract JSON from response (might be wrapped in markdown code blocks)
+      let jsonStr = trimmedReply;
+      
+      // Remove markdown code blocks if present
+      if (trimmedReply.includes('```json')) {
+        const match = trimmedReply.match(/```json\s*(\{[\s\S]*?\})\s*```/);
+        if (match) jsonStr = match[1];
+      } else if (trimmedReply.includes('```')) {
+        const match = trimmedReply.match(/```\s*(\{[\s\S]*?\})\s*```/);
+        if (match) jsonStr = match[1];
+      }
+      
+      // Check if it looks like JSON
+      if (jsonStr.trim().startsWith('{')) {
+        const parsed = JSON.parse(jsonStr.trim());
+        if (parsed.type === 'workout') {
+          workoutObj = parsed;
+        }
+      }
+    } catch (e) {
+      // Not JSON, will render as text
+    }
+    
+    if (workoutObj) {
+      // Render workout card and save workout JSON to chat history
+      renderWorkout(workoutObj);
+      saveMessage('bot', JSON.stringify(workoutObj), false); // Save JSON to history
+    } else {
+      // Check if reply contains a workout plan and enhance with exercise images
+      const enhancedReply = enhanceWorkoutResponse(reply);
+      appendMessage('bot', enhancedReply.content, true, enhancedReply.hasHTML);
+    }
     
     // Increment profiling step if user is being profiled
     if (isFirstTimeUser()) {
@@ -469,18 +720,42 @@ Utilise ces infos pour personnaliser tes conseils.`;
       localStorage.setItem(FIRST_TIME_CHAT_KEY, 'true');
       localStorage.removeItem(PROFILING_STEP_KEY);
     }
+    isSending = false;
+    chatInput.disabled = false;
   });
 
   // Clear chat history function
   window.clearChatHistory = function() {
     if (confirm('Êtes-vous sûr? Cela supprimera tout l\'historique du chat.')) {
-      localStorage.removeItem(STORAGE_KEY);
-      localStorage.removeItem(FIRST_TIME_CHAT_KEY);
-      localStorage.removeItem(PROFILING_STEP_KEY);
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(FIRST_TIME_CHAT_KEY);
+        localStorage.removeItem(PROFILING_STEP_KEY);
+      } catch (e) {
+        // Silently fail if storage clear fails
+      }
       chatWindow.innerHTML = '';
       alert('Historique effacé. La page va se recharger.');
       location.reload();
     }
+  };
+
+  // Test workout render function
+  window.testWorkoutRender = function() {
+    const testWorkout = {
+      type: "workout",
+      title: "Programme Débutant",
+      notes: "Ce programme est conçu pour les débutants qui veulent commencer à s'entraîner régulièrement. Il se concentre sur les exercices de base et les mouvements fondamentaux.",
+      exercises: [
+        {name: "Squat", reps: "3x8", image: "assets/images/exercise-placeholder.svg"},
+        {name: "Poussée de banc", reps: "3x10", image: "assets/images/exercise-placeholder.svg"},
+        {name: "Press à la hallebarde", reps: "3x8", image: "assets/images/exercise-placeholder.svg"},
+        {name: "Développé couché", reps: "3x10", image: "assets/images/exercise-placeholder.svg"},
+        {name: "Abdominaux", reps: "3x15", image: "assets/images/exercise-placeholder.svg"}
+      ]
+    };
+    renderWorkout(testWorkout);
+    saveMessage('bot', JSON.stringify(testWorkout), false);
   };
 
   // init
